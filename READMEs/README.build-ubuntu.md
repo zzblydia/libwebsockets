@@ -7,8 +7,8 @@ git clone https://libwebsockets.org/repo/libwebsockets
 cd libwebsockets  
 mkdir build  
 cd build  
-cmake .. -DCMAKE_BUILD_TYPE=DEBUG
-make && sudo make install
+cmake .. -DCMAKE_BUILD_TYPE=DEBUG  
+make && sudo make install  
 
 ## When there are multiple versions of OpenSSL present  
 cmake .. -DLWS_OPENSSL_INCLUDE_DIRS=/usr/local/include/openssl -DLWS_OPENSSL_LIBRARIES="/usr/local/lib64/libssl.so;/usr/local/lib64/libcrypto.so"  
