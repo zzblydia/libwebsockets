@@ -10,15 +10,14 @@
  */
 
 #include <libwebsockets.h>
-#include <net/if.h>
 
 int main(int argc, const char **argv)
 {
-	struct lws_context_creation_info info;
-	struct lws_context *ctx;
-	const char *p, *ip = NULL;
-	uint8_t mac[IFHWADDRLEN];
-	int ret = 1;
+       struct lws_context_creation_info info;
+       struct lws_context *ctx;
+       const char *p, *ip = NULL;
+       uint8_t mac[LWS_ETHER_ADDR_LEN];
+       int ret = 1;
 
 	memset(&info, 0, sizeof info);
 	lws_cmdline_option_handle_builtin(argc, argv, &info);

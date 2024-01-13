@@ -25,7 +25,7 @@
 if (PICO_SDK_PATH)
 	cmake_minimum_required(VERSION 3.13)
 else()
-	cmake_minimum_required(VERSION 2.8.12)
+	cmake_minimum_required(VERSION 3.5)
 endif()
 include(CheckFunctionExists)
 include(CheckSymbolExists)
@@ -159,6 +159,7 @@ option(LWS_WITH_SYS_ASYNC_DNS "Nonblocking internal IPv4 + IPv6 DNS resolver" OF
 option(LWS_WITH_SYS_NTPCLIENT "Build in tiny ntpclient good for tls date validation and run via lws_system" OFF)
 option(LWS_WITH_SYS_DHCP_CLIENT "Build in tiny DHCP client" OFF)
 option(LWS_WITH_HTTP_BASIC_AUTH "Support Basic Auth" ON)
+option(LWS_WITH_HTTP_DIGEST_AUTH "Support Digest Auth (caution deprecated crypto)" ON)
 option(LWS_WITH_HTTP_UNCOMMON_HEADERS "Include less common http header support" ON)
 option(LWS_WITH_SYS_STATE "lws_system state support" ON)
 option(LWS_WITH_SYS_SMD "Lws System Message Distribution" ON)
@@ -660,6 +661,10 @@ CHECK_C_SOURCE_COMPILES("#include <pthread.h>\nvoid main(void) { while(1) ; } vo
 CHECK_C_SOURCE_COMPILES("#include <inttypes.h>\nvoid main(void) { while(1) ; } void xxexit(void){}" LWS_HAVE_INTTYPES_H)
 CHECK_C_SOURCE_COMPILES("#include <sys/resource.h>\nvoid main(void) { while(1) ; } void xxexit(void){}" LWS_HAVE_SYS_RESOURCE_H)
 CHECK_C_SOURCE_COMPILES("#include <linux/ipv6.h>\nvoid main(void) { while(1) ; } void xxexit(void){}" LWS_HAVE_LINUX_IPV6_H)
+CHECK_C_SOURCE_COMPILES("#include <net/ethernet.h>\nvoid main(void) { while(1) ; } void xxexit(void){}" LWS_HAVE_NET_ETHERNET_H)
+CHECK_C_SOURCE_COMPILES("#include <systemd/sd-daemon.h>\nvoid main(void) { while(1) ; } void xxexit(void){}" LWS_HAVE_SYSTEMD_H)
+
+
 
 if (LWS_EXT_PTHREAD_INCLUDE_DIR)
 	set(LWS_HAVE_PTHREAD_H 1)

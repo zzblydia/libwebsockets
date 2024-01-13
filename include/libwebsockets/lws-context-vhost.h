@@ -952,6 +952,21 @@ struct lws_context_creation_info {
 	 */
 #endif
 
+	int default_loglevel;
+	/**< CONTEXT: 0 for LLL_USER, LLL_ERR, LLL_WARN, LLL_NOTICE enabled by default when
+	 * using lws_cmdline_option_handle_builtin(), else set to the LLL_ flags you want
+	 * to be the default before calling lws_cmdline_option_handle_builtin().  Your
+	 * selected default loglevel can then be cleanly overridden using -d 1039 etc
+	 * commandline switch */
+
+	lws_sockfd_type		vh_listen_sockfd;
+	/**< VHOST: 0 for normal vhost listen socket fd creation, if any.
+	 * Nonzero to force the selection of an already-existing fd for the
+	 * vhost's listen socket, which is already prepared.  This is intended
+	 * for an external process having chosen the fd, which cannot then be
+	 * zero.
+	 */
+
 	/* Add new things just above here ---^
 	 * This is part of the ABI, don't needlessly break compatibility
 	 *
@@ -1247,6 +1262,20 @@ LWS_VISIBLE LWS_EXTERN int
 lws_cmdline_passfail(int argc, const char **argv, int actual);
 
 /**
+ * lws_systemd_inherited_fd() - prepare vhost creation info for systemd exported fd if any
+ *
+ * \param index: 0+ index of exported fd
+ * \param info: info struct to be prepared with related info, if any
+ *
+ * Returns 0 and points info to the related fd, aligning the other information
+ * to the type of fd and port it is bound to, or returns nonzero if no such
+ * inherited fd.
+ */
+LWS_VISIBLE LWS_EXTERN int
+lws_systemd_inherited_fd(unsigned int index,
+			 struct lws_context_creation_info *info);
+
+/**
  * lws_context_is_being_destroyed() - find out if context is being destroyed
  *
  * \param context: the struct lws_context pointer
@@ -1294,7 +1323,8 @@ enum lws_mount_protocols {
 	LWSMPRO_CGI		= 3, /**< pass to CGI to handle */
 	LWSMPRO_REDIR_HTTP	= 4, /**< redirect to http:// url */
 	LWSMPRO_REDIR_HTTPS	= 5, /**< redirect to https:// url */
-	LWSMPRO_CALLBACK	= 6, /**< hand by named protocol's callback */
+	LWSMPRO_CALLBACK	= 6, /**< handle by named protocol's callback */
+	LWSMPRO_NO_MOUNT        = 7, /**< matches fall back to no match processing */
 };
 
 /** enum lws_authentication_mode
@@ -1356,6 +1386,9 @@ struct lws_http_mount {
 	 * This is part of the ABI, don't needlessly break compatibility
 	 */
 };
+
+LWS_VISIBLE LWS_EXTERN void
+lws_vhost_set_mounts(struct lws_vhost *v, const struct lws_http_mount *mounts);
 
 ///@}
 ///@}

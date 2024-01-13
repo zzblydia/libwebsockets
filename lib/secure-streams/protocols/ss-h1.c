@@ -951,7 +951,10 @@ malformed:
 					(unsigned int)(h->txn_resp_set ?
 						(h->txn_resp ? h->txn_resp : 200) :
 						HTTP_STATUS_NOT_FOUND),
-					NULL, h->wsi->http.writeable_len,
+					NULL,
+					h->policy->flags & LWSSSPOLF_HTTP_NO_CONTENT_LENGTH ?
+						LWS_ILLEGAL_HTTP_CONTENT_LEN :
+						h->wsi->http.writeable_len,
 					&p, end))
 				return 1;
 
@@ -1067,6 +1070,9 @@ malformed:
 
 		if (!h)
 			return -1;
+
+		if (h->wsi && h->wsi->mount_hit)
+			break;
 
 		lwsl_info("%s: LWS_CALLBACK_HTTP\n", __func__);
 		{
