@@ -83,7 +83,7 @@ int client_simple_callback(struct lws *wsi, enum lws_callback_reasons reason, vo
                 char *msg = (char *) &data->buf[LWS_PRE];
                 data->len = sprintf(msg, "hello %d", data->msg_count);
                 lwsl_notice("send: %s\n", msg);
-                lws_write(wsi, &data->buf[LWS_PRE], data->len, LWS_WRITE_TEXT);
+                lws_write(wsi, &data->buf[LWS_PRE], (size_t) data->len, LWS_WRITE_TEXT);
                 data->msg_count++;
 
                 if (direct_send) {
@@ -102,11 +102,9 @@ int client_simple_callback(struct lws *wsi, enum lws_callback_reasons reason, vo
 
 struct lws_protocols protocols[] = {
         {
-                "ws", client_simple_callback, sizeof(struct session_data), MAX_PAYLOAD_SIZE,
+            "ws", client_simple_callback, sizeof(struct session_data), MAX_PAYLOAD_SIZE, 0, NULL, 0
         },
-        {
-                NULL, NULL,                   0
-        }
+        LWS_PROTOCOL_LIST_TERM
 };
 
 int main() {
@@ -116,8 +114,8 @@ int main() {
     ctx_info.port = CONTEXT_PORT_NO_LISTEN;
     ctx_info.iface = NULL;
     ctx_info.protocols = protocols;
-    ctx_info.gid = -1;
-    ctx_info.uid = -1;
+    // ctx_info.gid = -1;
+    // ctx_info.uid = -1;
 
     struct lws_context *context = lws_create_context(&ctx_info);
     if (!context) {
