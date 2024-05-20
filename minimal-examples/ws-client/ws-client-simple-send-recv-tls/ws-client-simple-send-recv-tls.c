@@ -1,5 +1,5 @@
-#include <libwebsockets.h>
 #include <signal.h>
+#include <libwebsockets.h>
 
 static volatile int exit_sig = 0;
 #define MAX_PAYLOAD_SIZE 1024
@@ -35,7 +35,7 @@ int client_simple_callback(struct lws *wsi, enum lws_callback_reasons reason, vo
                 lwsl_wsi_notice(wsi, "send: %s\n", msg);
 
                 // 通过WebSocket发送文本消息
-                lws_write(wsi, &data->buf[LWS_PRE], data->len, LWS_WRITE_TEXT);
+                lws_write(wsi, &data->buf[LWS_PRE], (size_t) data->len, LWS_WRITE_TEXT);
 
                 data->msg_count++;
             }
@@ -48,19 +48,17 @@ int client_simple_callback(struct lws *wsi, enum lws_callback_reasons reason, vo
 
 struct lws_protocols protocols[] = {
         {
-                //协议名称，协议回调，接收缓冲区大小
-                "ws", client_simple_callback, sizeof(struct session_data), MAX_PAYLOAD_SIZE,
+            //协议名称，协议回调，接收缓冲区大小
+            "ws", client_simple_callback, sizeof(struct session_data), MAX_PAYLOAD_SIZE, 0, NULL, 0
         },
-        {
-                NULL, NULL,                   0 // 最后一个元素固定为此格式
-        }
+        LWS_PROTOCOL_LIST_TERM
 };
 
 static lws_log_cx_t g_LogContext = {
         .lll_flags    = LLLF_LOG_CONTEXT_AWARE | LLL_ERR | LLL_WARN | LLL_NOTICE | LLL_USER,
         .refcount_cb    = lws_log_use_cx_file,
         .u.emit_cx    = lws_log_emit_cx_file,
-        .opaque = "D:/code/gitcode/libwebsockets/minimal-examples/ws-client/ws-client-simple-send-recv/1.log"
+        .opaque = "D:/1.log"
 };
 
 int main() {
@@ -70,8 +68,8 @@ int main() {
     ctx_info.port = CONTEXT_PORT_NO_LISTEN;
     ctx_info.iface = NULL;
     ctx_info.protocols = protocols;
-    ctx_info.gid = -1;
-    ctx_info.uid = -1;
+    // ctx_info.gid = -1;
+    // ctx_info.uid = -1;
     ctx_info.options |= LWS_SERVER_OPTION_DO_SSL_GLOBAL_INIT;
     ctx_info.client_ssl_ca_filepath = "../localhost-100y.cert";
 
