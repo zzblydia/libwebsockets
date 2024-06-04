@@ -9,18 +9,15 @@ void signal_handle(int sig) {
     exit_sig = 1;
 }
 
-typedef struct session_data {
+struct session_data {
     int msg_count;
     unsigned char buf[LWS_PRE + MAX_PAYLOAD_SIZE];
     int len;
-} SessionData;
+};
 
 static int server_simple_callback(struct lws *wsi, enum lws_callback_reasons reason, void *user, void *in, size_t len) {
     struct session_data *data = (struct session_data *) user;
     switch (reason) {
-        case LWS_CALLBACK_PROTOCOL_INIT:    // 初始化成功, 未连接?
-            lwsl_notice("LWS_CALLBACK_PROTOCOL_INIT\n");
-            break;
         case LWS_CALLBACK_ESTABLISHED:       // 当服务器和客户端完成握手后
             lwsl_notice("client connect!\n");
             data->msg_count = 0;
@@ -43,9 +40,6 @@ static int server_simple_callback(struct lws *wsi, enum lws_callback_reasons rea
 
             // 下面的调用允许在此连接上接收数据
             // lws_rx_flow_control(wsi, 1);
-            break;
-        case LWS_CALLBACK_CLOSED:            // 当连接关闭时
-            lwsl_notice("LWS_CALLBACK_CLOSED\n");
             break;
         default:
             break;
@@ -71,8 +65,6 @@ int main(int argc, char **argv) {
     ctx_info.port = 8001;
     ctx_info.iface = NULL; // 在所有网络接口上监听
     ctx_info.protocols = protocols;
-    // ctx_info.gid = -1; // compile error on linux
-    // ctx_info.uid = -1;
 
     // SSL加密, 设置证书和私钥
     ctx_info.options |= LWS_SERVER_OPTION_DO_SSL_GLOBAL_INIT;
@@ -81,8 +73,6 @@ int main(int argc, char **argv) {
 
     struct lws_context *context = lws_create_context(&ctx_info);
     while (!exit_sig) {
-        // timeout_ms: >= 0, return depend on lws scheduler
-        // timeout_ms: < 0, return immediately
         lws_service(context, 0);
     }
     lws_context_destroy(context);
