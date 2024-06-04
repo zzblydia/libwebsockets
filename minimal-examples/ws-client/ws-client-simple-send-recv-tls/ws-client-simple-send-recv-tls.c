@@ -54,15 +54,10 @@ struct lws_protocols protocols[] = {
         LWS_PROTOCOL_LIST_TERM
 };
 
-static lws_log_cx_t g_LogContext = {
-        .lll_flags    = LLLF_LOG_CONTEXT_AWARE | LLL_ERR | LLL_WARN | LLL_NOTICE | LLL_USER,
-        .refcount_cb    = lws_log_use_cx_file,
-        .u.emit_cx    = lws_log_emit_cx_file,
-        .opaque = "D:/1.log"
-};
-
 int main() {
     signal(SIGTERM, signal_handle);
+    int logs = LLL_USER | LLL_ERR | LLL_WARN | LLL_NOTICE;
+    lws_set_log_level(logs, NULL);
 
     struct lws_context_creation_info ctx_info = {0};
     ctx_info.port = CONTEXT_PORT_NO_LISTEN;
@@ -71,9 +66,6 @@ int main() {
     // ctx_info.gid = -1;
     // ctx_info.uid = -1;
     ctx_info.options |= LWS_SERVER_OPTION_DO_SSL_GLOBAL_INIT;
-    ctx_info.client_ssl_ca_filepath = "../localhost-100y.cert";
-
-    ctx_info.log_cx = &g_LogContext;
 
     struct lws_context *context = lws_create_context(&ctx_info);
     char address[] = "127.0.0.1";
@@ -89,6 +81,8 @@ int main() {
     conn_info.host = addr_port;
     conn_info.origin = addr_port;
     conn_info.protocol = protocols[0].name;
+
+    // 如果使用SSL加密，需要设置此选项
     conn_info.ssl_connection =
             LCCSCF_USE_SSL | LCCSCF_ALLOW_SELFSIGNED | LCCSCF_SKIP_SERVER_CERT_HOSTNAME_CHECK | LCCSCF_ALLOW_INSECURE;
 
