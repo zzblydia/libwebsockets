@@ -212,7 +212,17 @@ done_list:
 	for (m = 0; m < limit; m++) {
 
 		if (a->info && a->info->vh_listen_sockfd)
-			sockfd = dup((int)a->info->vh_listen_sockfd);
+		{
+#if defined(_WIN32)
+			if (!DuplicateHandle(GetCurrentProcess(),
+					(HANDLE)a->info->vh_listen_sockfd,
+					GetCurrentProcess(), (HANDLE*)&sockfd, 0,
+					FALSE, DUPLICATE_SAME_ACCESS))
+				sockfd = LWS_SOCK_INVALID;
+#else
+			sockfd = dup(a->info->vh_listen_sockfd);
+#endif
+		}
 		else
 			sockfd = lws_fi(&a->vhost->fic, "listenskt") ?
 					LWS_SOCK_INVALID :
@@ -447,6 +457,11 @@ _lws_vhost_init_server(const struct lws_context_creation_info *info,
 	if (vhost->listen_port == CONTEXT_PORT_NO_LISTEN ||
 	    vhost->listen_port == CONTEXT_PORT_NO_LISTEN_SERVER)
 		return 0;
+
+	if (info && info->vh_listen_sockfd) {
+		a.af = AF_UNSPEC;
+		goto single;
+	}
 
 	/*
 	 * Let's figure out what AF(s) we want this vhost to listen on.
