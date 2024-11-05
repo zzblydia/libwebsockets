@@ -1,5 +1,8 @@
 # revision history  
 
+## 20241106  
+add ws-client-tools  
+
 ## 20240313  
 add ws-client-simple-schedule-send-tls  
 
