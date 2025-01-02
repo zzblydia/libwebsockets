@@ -1,0 +1,1646 @@
+Breakpoint 1, lws_plat_init (context=0x55555560f2a0, info=0x7fffffffde80) at /opt/packages/warmcat/lib/plat/unix/unix-init.c:133
+133             if (!context->lws_lookup) {
+(gdb) i b
+Num     Type           Disp Enb Address            What
+1       breakpoint     keep y   0x00005555555c8267 in lws_plat_init at /opt/packages/warmcat/lib/plat/unix/unix-init.c:133
+        breakpoint already hit 1 time
+(gdb) watch ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+(gdb) comm 4
+Type commands for breakpoint(s) 4, one per line.
+End with a line saying just "end".
+>shell date
+>bt
+>c
+>end
+(gdb) c
+Continuing.
+[2025/01/03 00:27:24:1368] N: __lws_lc_tag:  ++ [wsi|0|pipe] (1)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 0
+New value = 1
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x5555556115a0) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:27:24 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x5555556115a0) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x5555556115a0) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x0000555555584b90 in lws_wsi_inject_to_loop (pt=0x55555560f5d8, wsi=0x5555556115a0) at /opt/packages/warmcat/lib/core-net/wsi.c:360
+#3  0x000055555557f4cc in __lws_create_event_pipes (context=0x55555560f2a0) at /opt/packages/warmcat/lib/core-net/vhost.c:1172
+#4  0x000055555556109d in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1332
+#5  0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:27:24:1862] N: __lws_lc_tag:  ++ [vh|0|netlink] (1)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 1
+New value = 2
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555611b30) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:27:24 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555611b30) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x555555611b30) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x0000555555584b90 in lws_wsi_inject_to_loop (pt=0x55555560f5d8, wsi=0x555555611b30) at /opt/packages/warmcat/lib/core-net/wsi.c:360
+#3  0x00005555555b9a84 in rops_pt_init_destroy_netlink (context=0x55555560f2a0, info=0x7fffffffde80, pt=0x55555560f5d8, destroy=0)
+    at /opt/packages/warmcat/lib/roles/netlink/ops-netlink.c:615
+#4  0x0000555555561178 in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1340
+#5  0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:27:24:2029] N: __lws_lc_tag:  ++ [vh|1|system||-1] (2)
+[2025/01/03 00:27:24:2045] N: __lws_lc_tag:  ++ [wsisrv|0|system|asyncdns] (1)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 2
+New value = 3
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562f690) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:27:24 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562f690) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562f690) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x00005555555890fd in lws_adopt_descriptor_vhost2 (new_wsi=0x55555562f690, type=LWS_ADOPT_RAW_SOCKET_UDP, fd=...) at /opt/packages/warmcat/lib/core-net/adopt.c:408
+#3  0x0000555555589b5f in lws_create_adopt_udp2 (wsi=0x55555562f690, ads=0x7fffffffd730 "127.0.0.53", r=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/adopt.c:774
+#4  0x0000555555571593 in lws_async_dns_complete (q=0x7fffffffd650, c=0x55555562ae00) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:118
+#5  0x0000555555573b63 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x7fffffffd850 "127.0.0.53", qtype=LWS_ADNS_RECORD_A, cb=0x5555555896cc <lws_create_adopt_udp2>, 
+    wsi=0x55555562f690, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:1072
+#6  0x0000555555589dd5 in lws_create_adopt_udp (vhost=0x55555562bde0, ads=0x7fffffffd850 "127.0.0.53", port=53, flags=0, protocol_name=0x5555555eb2ed "lws-async-dns", ifname=0x0, 
+    parent_wsi=0x0, opaque=0x55555562d350, retry_policy=0x55555560bcd0 <retry_policy>, fi_wsi_name=0x5555555eb30b "asyncdns") at /opt/packages/warmcat/lib/core-net/adopt.c:893
+#7  0x00005555555724b7 in lws_async_dns_create_server_wsi (context=0x55555560f2a0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:486
+#8  0x0000555555572622 in lws_async_dns_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:521
+#9  0x000055555557f13c in lws_create_vhost (context=0x55555560f2a0, info=0x7fffffffdb10) at /opt/packages/warmcat/lib/core-net/vhost.c:1051
+#10 0x00005555555612a7 in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1406
+#11 0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:27:24:2324] N: __lws_lc_tag:  ++ [wsicli|0|WS/h1/system/127.0.0.1] (1)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 3
+New value = 4
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:27:24 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x000055555558d366 in lws_client_connect_3_connect (wsi=0x55555562d4c0, ads=0x7fffffffc4d0 "127.0.0.1", result=0x0, n=16, opaque=0x0)
+    at /opt/packages/warmcat/lib/core-net/client/connect3.c:452
+#3  0x0000555555571593 in lws_async_dns_complete (q=0x7fffffffc3f0, c=0x55555562d3d0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:118
+#4  0x0000555555573b63 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x55555562b710 "127.0.0.1", qtype=LWS_ADNS_RECORD_A, 
+    cb=0x55555558c802 <lws_client_connect_3_connect>, wsi=0x55555562d4c0, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:1072
+#5  0x000055555558c479 in lws_client_connect_2_dnsreq (wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/core-net/client/connect2.c:371
+#6  0x000055555558aa6b in lws_http_client_connect_via_info2 (wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/core-net/client/connect.c:71
+#7  0x0000555555592134 in lws_header_table_attach (wsi=0x55555562d4c0, autoservice=0) at /opt/packages/warmcat/lib/roles/http/parsers.c:291
+#8  0x000055555559d983 in rops_client_bind_h1 (wsi=0x55555562d4c0, i=0x0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:1019
+#9  0x000055555558b978 in lws_client_connect_via_info (i=0x7fffffffc7b0) at /opt/packages/warmcat/lib/core-net/client/connect.c:437
+#10 0x000055555555f46d in ws_client_callback_protocol_init (wsi=0x7fffffffca70)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:38
+#11 0x000055555555f504 in client_callback (wsi=0x7fffffffca70, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:50
+#12 0x000055555557da0f in lws_protocol_init_vhost (vh=0x55555562bde0, any=0x7fffffffd038) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#13 0x000055555557dc73 in lws_protocol_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/core-net/vhost.c:518
+#14 0x000055555558ad40 in lws_client_connect_via_info (i=0x7fffffffd180) at /opt/packages/warmcat/lib/core-net/client/connect.c:142
+#15 0x000055555555f46d in ws_client_callback_protocol_init (wsi=0x7fffffffd440)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:38
+#16 0x000055555555f504 in client_callback (wsi=0x7fffffffd440, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:50
+#17 0x000055555557da0f in lws_protocol_init_vhost (vh=0x55555562bde0, any=0x0) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#18 0x0000555555561329 in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1414
+#19 0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:27:24:2769] N: [wsicli|0|WS/h1/system/127.0.0.1]: lws_client_connect_3_connect: trying 127.0.0.1
+[2025/01/03 00:27:24:2773] N: __lws_lc_tag:  ++ [wsicli|1|WS/h1/system/127.0.0.1] (2)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 4
+New value = 5
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555631190) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:27:24 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555631190) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x555555631190) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x000055555558d366 in lws_client_connect_3_connect (wsi=0x555555631190, ads=0x55555562d190 "127.0.0.1", result=0x0, n=16, opaque=0x0)
+    at /opt/packages/warmcat/lib/core-net/client/connect3.c:452
+#3  0x0000555555573820 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x55555562d190 "127.0.0.1", qtype=LWS_ADNS_RECORD_A, 
+    cb=0x55555558c802 <lws_client_connect_3_connect>, wsi=0x555555631190, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:997
+#4  0x000055555558c479 in lws_client_connect_2_dnsreq (wsi=0x555555631190) at /opt/packages/warmcat/lib/core-net/client/connect2.c:371
+#5  0x000055555558aa6b in lws_http_client_connect_via_info2 (wsi=0x555555631190) at /opt/packages/warmcat/lib/core-net/client/connect.c:71
+#6  0x0000555555592134 in lws_header_table_attach (wsi=0x555555631190, autoservice=0) at /opt/packages/warmcat/lib/roles/http/parsers.c:291
+#7  0x000055555559d983 in rops_client_bind_h1 (wsi=0x555555631190, i=0x0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:1019
+#8  0x000055555558b978 in lws_client_connect_via_info (i=0x7fffffffd180) at /opt/packages/warmcat/lib/core-net/client/connect.c:437
+#9  0x000055555555f46d in ws_client_callback_protocol_init (wsi=0x7fffffffd440)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:38
+#10 0x000055555555f504 in client_callback (wsi=0x7fffffffd440, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:50
+#11 0x000055555557da0f in lws_protocol_init_vhost (vh=0x55555562bde0, any=0x0) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#12 0x0000555555561329 in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1414
+#13 0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:27:24:2899] N: [wsicli|1|WS/h1/system/127.0.0.1]: lws_client_connect_3_connect: trying 127.0.0.1
+[2025/01/03 00:27:24:2903] N: __lws_lc_tag:  ++ [wsisrv|1|system|asyncdns] (2)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 5
+New value = 6
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555632f40) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:27:24 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555632f40) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x555555632f40) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x00005555555890fd in lws_adopt_descriptor_vhost2 (new_wsi=0x555555632f40, type=LWS_ADOPT_RAW_SOCKET_UDP, fd=...) at /opt/packages/warmcat/lib/core-net/adopt.c:408
+#3  0x0000555555589b5f in lws_create_adopt_udp2 (wsi=0x555555632f40, ads=0x7fffffffd970 "127.0.0.53", r=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/adopt.c:774
+#4  0x0000555555573820 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x7fffffffd970 "127.0.0.53", qtype=LWS_ADNS_RECORD_A, cb=0x5555555896cc <lws_create_adopt_udp2>, 
+    wsi=0x555555632f40, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:997
+#5  0x0000555555589dd5 in lws_create_adopt_udp (vhost=0x55555562bde0, ads=0x7fffffffd970 "127.0.0.53", port=53, flags=0, protocol_name=0x5555555eb2ed "lws-async-dns", ifname=0x0, 
+    parent_wsi=0x0, opaque=0x55555562c300, retry_policy=0x55555560bcd0 <retry_policy>, fi_wsi_name=0x5555555eb30b "asyncdns") at /opt/packages/warmcat/lib/core-net/adopt.c:893
+#6  0x00005555555724b7 in lws_async_dns_create_server_wsi (context=0x55555560f2a0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:486
+#7  0x0000555555572622 in lws_async_dns_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:521
+#8  0x0000555555561384 in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1420
+#9  0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:27:24:2996] N: __lws_lc_tag:  ++ [vh|2|default||-1] (3)
+[2025/01/03 00:27:24:3037] N: __lws_lc_tag:  ++ [wsicli|2|WS/h1/default/127.0.0.1] (3)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 6
+New value = 7
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555674540) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:27:24 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555674540) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x555555674540) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x000055555558d366 in lws_client_connect_3_connect (wsi=0x555555674540, ads=0x55555562fdd0 "127.0.0.1", result=0x0, n=16, opaque=0x0)
+    at /opt/packages/warmcat/lib/core-net/client/connect3.c:452
+#3  0x0000555555573820 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x55555562fdd0 "127.0.0.1", qtype=LWS_ADNS_RECORD_A, 
+    cb=0x55555558c802 <lws_client_connect_3_connect>, wsi=0x555555674540, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:997
+#4  0x000055555558c479 in lws_client_connect_2_dnsreq (wsi=0x555555674540) at /opt/packages/warmcat/lib/core-net/client/connect2.c:371
+#5  0x000055555558aa6b in lws_http_client_connect_via_info2 (wsi=0x555555674540) at /opt/packages/warmcat/lib/core-net/client/connect.c:71
+#6  0x0000555555592134 in lws_header_table_attach (wsi=0x555555674540, autoservice=0) at /opt/packages/warmcat/lib/roles/http/parsers.c:291
+#7  0x000055555559d983 in rops_client_bind_h1 (wsi=0x555555674540, i=0x0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:1019
+#8  0x000055555558b978 in lws_client_connect_via_info (i=0x7fffffffd010) at /opt/packages/warmcat/lib/core-net/client/connect.c:437
+#9  0x000055555555f46d in ws_client_callback_protocol_init (wsi=0x7fffffffd2d0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:38
+#10 0x000055555555f504 in client_callback (wsi=0x7fffffffd2d0, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:50
+#11 0x000055555557da0f in lws_protocol_init_vhost (vh=0x55555562c660, any=0x7fffffffd898) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#12 0x000055555557dc73 in lws_protocol_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/core-net/vhost.c:518
+#13 0x000055555557f160 in lws_create_vhost (context=0x55555560f2a0, info=0x7fffffffde80) at /opt/packages/warmcat/lib/core-net/vhost.c:1058
+#14 0x000055555556148b in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1460
+#15 0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:27:24:3179] N: [wsicli|2|WS/h1/default/127.0.0.1]: lws_client_connect_3_connect: trying 127.0.0.1
+[2025/01/03 00:27:24:3183] E: SSL_new failed: error:00000063:lib(0)::reason(99)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 7
+New value = 6
+lws_plat_delete_socket_from_fds (context=0x55555560f2a0, wsi=0x55555562d4c0, m=3) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:259
+259     }
+2025年 01月 03日 星期五 00:27:24 HKT
+#0  lws_plat_delete_socket_from_fds (context=0x55555560f2a0, wsi=0x55555562d4c0, m=3) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:259
+#1  0x0000555555581903 in __remove_wsi_socket_from_fds (wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/core-net/pollfd.c:424
+#2  0x000055555557952a in __lws_close_free_wsi (wsi=0x55555562d4c0, reason=LWS_CLOSE_STATUS_NOSTATUS, caller=0x5555555f66bd "cbail3") at /opt/packages/warmcat/lib/core-net/close.c:748
+#3  0x0000555555579f05 in lws_close_free_wsi (wsi=0x55555562d4c0, reason=LWS_CLOSE_STATUS_NOSTATUS, caller=0x5555555f66bd "cbail3") at /opt/packages/warmcat/lib/core-net/close.c:1051
+#4  0x00005555555b4023 in lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:488
+#5  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#6  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd980, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#7  0x000055555558e65d in lws_client_connect_4_established (wsi=0x55555562d4c0, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#8  0x000055555558dc44 in lws_client_connect_3_connect (wsi=0x55555562d4c0, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#9  0x00005555555b3418 in lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#10 0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#11 0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#12 0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#13 0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#14 0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#15 0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#16 0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#17 0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+[2025/01/03 00:27:24:3475] N: __lws_lc_untag:  -- [wsicli|0|WS/h1/system/127.0.0.1] (2) 115.053ms
+[2025/01/03 00:27:24:3483] E: SSL_new failed: error:00000063:lib(0)::reason(99)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 6
+New value = 5
+lws_plat_delete_socket_from_fds (context=0x55555560f2a0, wsi=0x555555631190, m=4) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:259
+259     }
+2025年 01月 03日 星期五 00:27:24 HKT
+#0  lws_plat_delete_socket_from_fds (context=0x55555560f2a0, wsi=0x555555631190, m=4) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:259
+#1  0x0000555555581903 in __remove_wsi_socket_from_fds (wsi=0x555555631190) at /opt/packages/warmcat/lib/core-net/pollfd.c:424
+#2  0x000055555557952a in __lws_close_free_wsi (wsi=0x555555631190, reason=LWS_CLOSE_STATUS_NOSTATUS, caller=0x5555555f66bd "cbail3") at /opt/packages/warmcat/lib/core-net/close.c:748
+#3  0x0000555555579f05 in lws_close_free_wsi (wsi=0x555555631190, reason=LWS_CLOSE_STATUS_NOSTATUS, caller=0x5555555f66bd "cbail3") at /opt/packages/warmcat/lib/core-net/close.c:1051
+#4  0x00005555555b4023 in lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:488
+#5  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#6  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd980, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#7  0x000055555558e65d in lws_client_connect_4_established (wsi=0x555555631190, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#8  0x000055555558dc44 in lws_client_connect_3_connect (wsi=0x555555631190, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#9  0x00005555555b3418 in lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#10 0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#11 0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127c0, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#12 0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#13 0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#14 0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#15 0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#16 0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#17 0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+[2025/01/03 00:27:24:3626] N: __lws_lc_untag:  -- [wsicli|1|WS/h1/system/127.0.0.1] (1) 85.275ms
+[2025/01/03 00:27:24:3644] N: accepting self-signed certificate (verify_callback)
+[2025/01/03 00:27:24:3656] N: Connected to server ok!
+[2025/01/03 00:27:24:3658] N: send: hello 0
+[2025/01/03 00:27:24:3660] N: send: hello 1
+[2025/01/03 00:27:24:3663] N: send: hello 2
+[2025/01/03 00:27:24:3665] N: receive: hello 0
+[2025/01/03 00:27:24:3666] N: receive: hello 1
+[2025/01/03 00:27:24:3668] N: receive: hello 2
+
+^C
+Program received signal SIGINT, Interrupt.
+Download failed: 无效的参数.  Continuing without source file ./io/../sysdeps/unix/sysv/linux/poll.c.
+0x00007ffff751b494 in __GI___poll (fds=0x5555556127a0, nfds=5, timeout=30000) at ../sysdeps/unix/sysv/linux/poll.c:29
+warning: 29     ../sysdeps/unix/sysv/linux/poll.c: 没有那个文件或目录
+(gdb) b SSL_CTX_new
+Breakpoint 5 at 0x7ffff7f27437: file ssl/ssl_lib.c, line 3414.
+(gdb) b SSL_new
+Breakpoint 6 at 0x7ffff7f20e07: file ssl/ssl_lib.c, line 673.
+(gdb) comm 5 6
+Type commands for breakpoint(s) 5 6, one per line.
+End with a line saying just "end".
+>shell date
+>bt 
+>c
+>end
+(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /opt/packages/warmcat/build/bin/ws-client-send-recv-tls 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+Download failed: 无效的参数.  Continuing without source file ./string/../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S.
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = <unreadable>
+New value = 0
+__memset_avx2_unaligned_erms () at ../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S:328
+warning: 328    ../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S: 没有那个文件或目录
+2025年 01月 03日 星期五 00:32:14 HKT
+#0  __memset_avx2_unaligned_erms () at ../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S:328
+#1  0x00005555555d4ee3 in lws_zalloc (size=8192, reason=0x5555555e9268 "context") at /opt/packages/warmcat/lib/core/alloc.c:215
+#2  0x000055555555fd77 in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:650
+#3  0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:32:14:1846] N: lws_create_context: LWS: 4.3.99-v4.3.0-424-ga74362ff, NET CLI SRV H1 H2 WS SS-JSON-POL ConMon ASYNC_DNS IPV6-on
+
+Breakpoint 1, lws_plat_init (context=0x55555560f2a0, info=0x7fffffffde80) at /opt/packages/warmcat/lib/plat/unix/unix-init.c:133
+133             if (!context->lws_lookup) {
+(gdb) c
+Continuing.
+[2025/01/03 00:32:23:8218] N: __lws_lc_tag:  ++ [wsi|0|pipe] (1)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 0
+New value = 1
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x5555556115a0) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:32:23 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x5555556115a0) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x5555556115a0) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x0000555555584b90 in lws_wsi_inject_to_loop (pt=0x55555560f5d8, wsi=0x5555556115a0) at /opt/packages/warmcat/lib/core-net/wsi.c:360
+#3  0x000055555557f4cc in __lws_create_event_pipes (context=0x55555560f2a0) at /opt/packages/warmcat/lib/core-net/vhost.c:1172
+#4  0x000055555556109d in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1332
+#5  0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:32:23:8297] N: __lws_lc_tag:  ++ [vh|0|netlink] (1)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 1
+New value = 2
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555611b30) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:32:23 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555611b30) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x555555611b30) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x0000555555584b90 in lws_wsi_inject_to_loop (pt=0x55555560f5d8, wsi=0x555555611b30) at /opt/packages/warmcat/lib/core-net/wsi.c:360
+#3  0x00005555555b9a84 in rops_pt_init_destroy_netlink (context=0x55555560f2a0, info=0x7fffffffde80, pt=0x55555560f5d8, destroy=0)
+    at /opt/packages/warmcat/lib/roles/netlink/ops-netlink.c:615
+#4  0x0000555555561178 in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1340
+#5  0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:32:23:8436] N: __lws_lc_tag:  ++ [vh|1|system||-1] (2)
+[2025/01/03 00:32:23:8437] N: __lws_lc_tag:  ++ [wsisrv|0|system|asyncdns] (1)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 2
+New value = 3
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562f690) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:32:23 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562f690) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562f690) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x00005555555890fd in lws_adopt_descriptor_vhost2 (new_wsi=0x55555562f690, type=LWS_ADOPT_RAW_SOCKET_UDP, fd=...) at /opt/packages/warmcat/lib/core-net/adopt.c:408
+#3  0x0000555555589b5f in lws_create_adopt_udp2 (wsi=0x55555562f690, ads=0x7fffffffd730 "127.0.0.53", r=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/adopt.c:774
+#4  0x0000555555571593 in lws_async_dns_complete (q=0x7fffffffd650, c=0x55555562ae00) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:118
+#5  0x0000555555573b63 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x7fffffffd850 "127.0.0.53", qtype=LWS_ADNS_RECORD_A, cb=0x5555555896cc <lws_create_adopt_udp2>, 
+    wsi=0x55555562f690, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:1072
+#6  0x0000555555589dd5 in lws_create_adopt_udp (vhost=0x55555562bde0, ads=0x7fffffffd850 "127.0.0.53", port=53, flags=0, protocol_name=0x5555555eb2ed "lws-async-dns", ifname=0x0, 
+    parent_wsi=0x0, opaque=0x55555562d350, retry_policy=0x55555560bcd0 <retry_policy>, fi_wsi_name=0x5555555eb30b "asyncdns") at /opt/packages/warmcat/lib/core-net/adopt.c:893
+#7  0x00005555555724b7 in lws_async_dns_create_server_wsi (context=0x55555560f2a0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:486
+#8  0x0000555555572622 in lws_async_dns_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:521
+#9  0x000055555557f13c in lws_create_vhost (context=0x55555560f2a0, info=0x7fffffffdb10) at /opt/packages/warmcat/lib/core-net/vhost.c:1051
+#10 0x00005555555612a7 in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1406
+#11 0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:32:23:8592] N: __lws_lc_tag:  ++ [wsicli|0|WS/h1/system/127.0.0.1] (1)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 3
+New value = 4
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:32:23 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x000055555558d366 in lws_client_connect_3_connect (wsi=0x55555562d4c0, ads=0x7fffffffc4d0 "127.0.0.1", result=0x0, n=16, opaque=0x0)
+    at /opt/packages/warmcat/lib/core-net/client/connect3.c:452
+#3  0x0000555555571593 in lws_async_dns_complete (q=0x7fffffffc3f0, c=0x55555562d3d0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:118
+#4  0x0000555555573b63 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x55555562b710 "127.0.0.1", qtype=LWS_ADNS_RECORD_A, 
+    cb=0x55555558c802 <lws_client_connect_3_connect>, wsi=0x55555562d4c0, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:1072
+#5  0x000055555558c479 in lws_client_connect_2_dnsreq (wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/core-net/client/connect2.c:371
+#6  0x000055555558aa6b in lws_http_client_connect_via_info2 (wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/core-net/client/connect.c:71
+#7  0x0000555555592134 in lws_header_table_attach (wsi=0x55555562d4c0, autoservice=0) at /opt/packages/warmcat/lib/roles/http/parsers.c:291
+#8  0x000055555559d983 in rops_client_bind_h1 (wsi=0x55555562d4c0, i=0x0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:1019
+#9  0x000055555558b978 in lws_client_connect_via_info (i=0x7fffffffc7b0) at /opt/packages/warmcat/lib/core-net/client/connect.c:437
+#10 0x000055555555f46d in ws_client_callback_protocol_init (wsi=0x7fffffffca70)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:38
+#11 0x000055555555f504 in client_callback (wsi=0x7fffffffca70, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:50
+#12 0x000055555557da0f in lws_protocol_init_vhost (vh=0x55555562bde0, any=0x7fffffffd038) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#13 0x000055555557dc73 in lws_protocol_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/core-net/vhost.c:518
+#14 0x000055555558ad40 in lws_client_connect_via_info (i=0x7fffffffd180) at /opt/packages/warmcat/lib/core-net/client/connect.c:142
+#15 0x000055555555f46d in ws_client_callback_protocol_init (wsi=0x7fffffffd440)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:38
+#16 0x000055555555f504 in client_callback (wsi=0x7fffffffd440, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:50
+#17 0x000055555557da0f in lws_protocol_init_vhost (vh=0x55555562bde0, any=0x0) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#18 0x0000555555561329 in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1414
+#19 0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:32:23:8779] N: [wsicli|0|WS/h1/system/127.0.0.1]: lws_client_connect_3_connect: trying 127.0.0.1
+[2025/01/03 00:32:23:8784] N: __lws_lc_tag:  ++ [wsicli|1|WS/h1/system/127.0.0.1] (2)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 4
+New value = 5
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555631190) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:32:23 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555631190) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x555555631190) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x000055555558d366 in lws_client_connect_3_connect (wsi=0x555555631190, ads=0x55555562d190 "127.0.0.1", result=0x0, n=16, opaque=0x0)
+    at /opt/packages/warmcat/lib/core-net/client/connect3.c:452
+#3  0x0000555555573820 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x55555562d190 "127.0.0.1", qtype=LWS_ADNS_RECORD_A, 
+    cb=0x55555558c802 <lws_client_connect_3_connect>, wsi=0x555555631190, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:997
+#4  0x000055555558c479 in lws_client_connect_2_dnsreq (wsi=0x555555631190) at /opt/packages/warmcat/lib/core-net/client/connect2.c:371
+#5  0x000055555558aa6b in lws_http_client_connect_via_info2 (wsi=0x555555631190) at /opt/packages/warmcat/lib/core-net/client/connect.c:71
+#6  0x0000555555592134 in lws_header_table_attach (wsi=0x555555631190, autoservice=0) at /opt/packages/warmcat/lib/roles/http/parsers.c:291
+#7  0x000055555559d983 in rops_client_bind_h1 (wsi=0x555555631190, i=0x0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:1019
+#8  0x000055555558b978 in lws_client_connect_via_info (i=0x7fffffffd180) at /opt/packages/warmcat/lib/core-net/client/connect.c:437
+#9  0x000055555555f46d in ws_client_callback_protocol_init (wsi=0x7fffffffd440)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:38
+#10 0x000055555555f504 in client_callback (wsi=0x7fffffffd440, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:50
+#11 0x000055555557da0f in lws_protocol_init_vhost (vh=0x55555562bde0, any=0x0) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#12 0x0000555555561329 in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1414
+#13 0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:32:23:8928] N: [wsicli|1|WS/h1/system/127.0.0.1]: lws_client_connect_3_connect: trying 127.0.0.1
+[2025/01/03 00:32:23:8935] N: __lws_lc_tag:  ++ [wsisrv|1|system|asyncdns] (2)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 5
+New value = 6
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555632f40) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:32:23 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555632f40) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x555555632f40) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x00005555555890fd in lws_adopt_descriptor_vhost2 (new_wsi=0x555555632f40, type=LWS_ADOPT_RAW_SOCKET_UDP, fd=...) at /opt/packages/warmcat/lib/core-net/adopt.c:408
+#3  0x0000555555589b5f in lws_create_adopt_udp2 (wsi=0x555555632f40, ads=0x7fffffffd970 "127.0.0.53", r=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/adopt.c:774
+#4  0x0000555555573820 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x7fffffffd970 "127.0.0.53", qtype=LWS_ADNS_RECORD_A, cb=0x5555555896cc <lws_create_adopt_udp2>, 
+    wsi=0x555555632f40, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:997
+#5  0x0000555555589dd5 in lws_create_adopt_udp (vhost=0x55555562bde0, ads=0x7fffffffd970 "127.0.0.53", port=53, flags=0, protocol_name=0x5555555eb2ed "lws-async-dns", ifname=0x0, 
+    parent_wsi=0x0, opaque=0x55555562c300, retry_policy=0x55555560bcd0 <retry_policy>, fi_wsi_name=0x5555555eb30b "asyncdns") at /opt/packages/warmcat/lib/core-net/adopt.c:893
+#6  0x00005555555724b7 in lws_async_dns_create_server_wsi (context=0x55555560f2a0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:486
+#7  0x0000555555572622 in lws_async_dns_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:521
+#8  0x0000555555561384 in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1420
+#9  0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:32:23:9028] N: __lws_lc_tag:  ++ [vh|2|default||-1] (3)
+
+Breakpoint 5, SSL_CTX_new (meth=0x7ffff7fb62a0 <TLS_client_method_data.14>) at ssl/ssl_lib.c:3414
+3414        return SSL_CTX_new_ex(NULL, NULL, meth);
+2025年 01月 03日 星期五 00:32:24 HKT
+#0  SSL_CTX_new (meth=0x7ffff7fb62a0 <TLS_client_method_data.14>) at ssl/ssl_lib.c:3414
+#1  0x00005555555d366d in lws_tls_client_create_vhost_context (vh=0x55555562c660, info=0x7fffffffde80, cipher_list=0x0, ca_filepath=0x0, ca_mem=0x0, ca_mem_len=0, cert_filepath=0x0, 
+    cert_mem=0x0, cert_mem_len=0, private_key_filepath=0x0, key_mem=0x0, key_mem_len=0) at /opt/packages/warmcat/lib/tls/openssl/openssl-client.c:910
+#2  0x00005555555d1ae9 in lws_context_init_client_ssl (info=0x7fffffffde80, vhost=0x55555562c660) at /opt/packages/warmcat/lib/tls/tls-client.c:158
+#3  0x000055555557f00f in lws_create_vhost (context=0x55555560f2a0, info=0x7fffffffde80) at /opt/packages/warmcat/lib/core-net/vhost.c:1019
+#4  0x000055555556148b in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1460
+#5  0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:32:24:2483] N: __lws_lc_tag:  ++ [wsicli|2|WS/h1/default/127.0.0.1] (3)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 6
+New value = 7
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555674540) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:32:24 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555674540) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x555555674540) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x000055555558d366 in lws_client_connect_3_connect (wsi=0x555555674540, ads=0x55555562fdd0 "127.0.0.1", result=0x0, n=16, opaque=0x0)
+    at /opt/packages/warmcat/lib/core-net/client/connect3.c:452
+#3  0x0000555555573820 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x55555562fdd0 "127.0.0.1", qtype=LWS_ADNS_RECORD_A, 
+    cb=0x55555558c802 <lws_client_connect_3_connect>, wsi=0x555555674540, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:997
+#4  0x000055555558c479 in lws_client_connect_2_dnsreq (wsi=0x555555674540) at /opt/packages/warmcat/lib/core-net/client/connect2.c:371
+#5  0x000055555558aa6b in lws_http_client_connect_via_info2 (wsi=0x555555674540) at /opt/packages/warmcat/lib/core-net/client/connect.c:71
+#6  0x0000555555592134 in lws_header_table_attach (wsi=0x555555674540, autoservice=0) at /opt/packages/warmcat/lib/roles/http/parsers.c:291
+#7  0x000055555559d983 in rops_client_bind_h1 (wsi=0x555555674540, i=0x0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:1019
+#8  0x000055555558b978 in lws_client_connect_via_info (i=0x7fffffffd010) at /opt/packages/warmcat/lib/core-net/client/connect.c:437
+#9  0x000055555555f46d in ws_client_callback_protocol_init (wsi=0x7fffffffd2d0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:38
+#10 0x000055555555f504 in client_callback (wsi=0x7fffffffd2d0, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:50
+#11 0x000055555557da0f in lws_protocol_init_vhost (vh=0x55555562c660, any=0x7fffffffd898) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#12 0x000055555557dc73 in lws_protocol_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/core-net/vhost.c:518
+#13 0x000055555557f160 in lws_create_vhost (context=0x55555560f2a0, info=0x7fffffffde80) at /opt/packages/warmcat/lib/core-net/vhost.c:1058
+#14 0x000055555556148b in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1460
+#15 0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:32:24:2616] N: [wsicli|2|WS/h1/default/127.0.0.1]: lws_client_connect_3_connect: trying 127.0.0.1
+
+Breakpoint 6, SSL_new (ctx=0x0) at ssl/ssl_lib.c:673
+673     {
+2025年 01月 03日 星期五 00:32:24 HKT
+#0  SSL_new (ctx=0x0) at ssl/ssl_lib.c:673
+#1  0x00005555555d2176 in lws_ssl_client_bio_create (wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/tls/openssl/openssl-client.c:275
+#2  0x00005555555d1bec in lws_client_create_tls (wsi=0x55555562d4c0, pcce=0x7fffffffd788, do_c1=1) at /opt/packages/warmcat/lib/tls/tls-client.c:204
+#3  0x00005555555b36f4 in lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:185
+#4  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#5  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd980, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#6  0x000055555558e65d in lws_client_connect_4_established (wsi=0x55555562d4c0, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#7  0x000055555558dc44 in lws_client_connect_3_connect (wsi=0x55555562d4c0, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#8  0x00005555555b3418 in lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#9  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#10 0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#11 0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#12 0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#13 0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#14 0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#15 0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#16 0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+[2025/01/03 00:32:24:2740] E: SSL_new failed: error:00000063:lib(0)::reason(99)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 7
+New value = 6
+lws_plat_delete_socket_from_fds (context=0x55555560f2a0, wsi=0x55555562d4c0, m=3) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:259
+259     }
+2025年 01月 03日 星期五 00:32:24 HKT
+#0  lws_plat_delete_socket_from_fds (context=0x55555560f2a0, wsi=0x55555562d4c0, m=3) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:259
+#1  0x0000555555581903 in __remove_wsi_socket_from_fds (wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/core-net/pollfd.c:424
+#2  0x000055555557952a in __lws_close_free_wsi (wsi=0x55555562d4c0, reason=LWS_CLOSE_STATUS_NOSTATUS, caller=0x5555555f66bd "cbail3") at /opt/packages/warmcat/lib/core-net/close.c:748
+#3  0x0000555555579f05 in lws_close_free_wsi (wsi=0x55555562d4c0, reason=LWS_CLOSE_STATUS_NOSTATUS, caller=0x5555555f66bd "cbail3") at /opt/packages/warmcat/lib/core-net/close.c:1051
+#4  0x00005555555b4023 in lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:488
+#5  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#6  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd980, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#7  0x000055555558e65d in lws_client_connect_4_established (wsi=0x55555562d4c0, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#8  0x000055555558dc44 in lws_client_connect_3_connect (wsi=0x55555562d4c0, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#9  0x00005555555b3418 in lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#10 0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#11 0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#12 0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#13 0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#14 0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#15 0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#16 0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#17 0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+[2025/01/03 00:32:24:2901] N: __lws_lc_untag:  -- [wsicli|0|WS/h1/system/127.0.0.1] (2) 430.834ms
+
+Breakpoint 6, SSL_new (ctx=0x5555556407b0) at ssl/ssl_lib.c:673
+673     {
+2025年 01月 03日 星期五 00:32:24 HKT
+#0  SSL_new (ctx=0x5555556407b0) at ssl/ssl_lib.c:673
+#1  0x00005555555d2176 in lws_ssl_client_bio_create (wsi=0x555555674540) at /opt/packages/warmcat/lib/tls/openssl/openssl-client.c:275
+#2  0x00005555555d1bec in lws_client_create_tls (wsi=0x555555674540, pcce=0x7fffffffd788, do_c1=1) at /opt/packages/warmcat/lib/tls/tls-client.c:204
+#3  0x00005555555b36f4 in lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:185
+#4  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555674540, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#5  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd980, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#6  0x000055555558e65d in lws_client_connect_4_established (wsi=0x555555674540, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#7  0x000055555558dc44 in lws_client_connect_3_connect (wsi=0x555555674540, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#8  0x00005555555b3418 in lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#9  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#10 0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#11 0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#12 0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#13 0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#14 0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#15 0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#16 0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+[2025/01/03 00:32:24:3081] N: accepting self-signed certificate (verify_callback)
+
+Breakpoint 6, SSL_new (ctx=0x0) at ssl/ssl_lib.c:673
+673     {
+2025年 01月 03日 星期五 00:32:24 HKT
+#0  SSL_new (ctx=0x0) at ssl/ssl_lib.c:673
+#1  0x00005555555d2176 in lws_ssl_client_bio_create (wsi=0x555555631190) at /opt/packages/warmcat/lib/tls/openssl/openssl-client.c:275
+#2  0x00005555555d1bec in lws_client_create_tls (wsi=0x555555631190, pcce=0x7fffffffd788, do_c1=1) at /opt/packages/warmcat/lib/tls/tls-client.c:204
+#3  0x00005555555b36f4 in lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:185
+#4  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#5  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd980, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#6  0x000055555558e65d in lws_client_connect_4_established (wsi=0x555555631190, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#7  0x000055555558dc44 in lws_client_connect_3_connect (wsi=0x555555631190, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#8  0x00005555555b3418 in lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#9  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#10 0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127c0, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#11 0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#12 0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#13 0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#14 0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#15 0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#16 0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+[2025/01/03 00:32:24:3223] E: SSL_new failed: error:00000063:lib(0)::reason(99)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 6
+New value = 5
+lws_plat_delete_socket_from_fds (context=0x55555560f2a0, wsi=0x555555631190, m=4) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:259
+259     }
+2025年 01月 03日 星期五 00:32:24 HKT
+#0  lws_plat_delete_socket_from_fds (context=0x55555560f2a0, wsi=0x555555631190, m=4) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:259
+#1  0x0000555555581903 in __remove_wsi_socket_from_fds (wsi=0x555555631190) at /opt/packages/warmcat/lib/core-net/pollfd.c:424
+#2  0x000055555557952a in __lws_close_free_wsi (wsi=0x555555631190, reason=LWS_CLOSE_STATUS_NOSTATUS, caller=0x5555555f66bd "cbail3") at /opt/packages/warmcat/lib/core-net/close.c:748
+#3  0x0000555555579f05 in lws_close_free_wsi (wsi=0x555555631190, reason=LWS_CLOSE_STATUS_NOSTATUS, caller=0x5555555f66bd "cbail3") at /opt/packages/warmcat/lib/core-net/close.c:1051
+#4  0x00005555555b4023 in lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:488
+#5  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#6  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd980, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#7  0x000055555558e65d in lws_client_connect_4_established (wsi=0x555555631190, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#8  0x000055555558dc44 in lws_client_connect_3_connect (wsi=0x555555631190, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#9  0x00005555555b3418 in lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#10 0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#11 0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127c0, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#12 0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#13 0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#14 0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#15 0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#16 0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#17 0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+[2025/01/03 00:32:24:3370] N: __lws_lc_untag:  -- [wsicli|1|WS/h1/system/127.0.0.1] (1) 458.602ms
+[2025/01/03 00:32:24:3377] N: Connected to server ok!
+[2025/01/03 00:32:24:3378] N: send: hello 0
+[2025/01/03 00:32:24:3382] N: send: hello 1
+[2025/01/03 00:32:24:3384] N: receive: hello 0
+[2025/01/03 00:32:24:3385] N: send: hello 2
+[2025/01/03 00:32:24:3388] N: receive: hello 1
+[2025/01/03 00:32:24:3390] N: receive: hello 2
+
+
+
+
+
+
+(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /opt/packages/warmcat/build/bin/ws-client-send-recv-tls 
+Downloading separate debug info for system-supplied DSO at 0x7ffff7fc3000
+[Thread debugging using libthread_db enabled]                                                                                                                                             
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+Download failed: 无效的参数.  Continuing without source file ./string/../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S.
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = <unreadable>
+New value = 0
+__memset_avx2_unaligned_erms () at ../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S:328
+warning: 328    ../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S: 没有那个文件或目录
+2025年 01月 03日 星期五 00:41:14 HKT
+#0  __memset_avx2_unaligned_erms () at ../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S:328
+#1  0x00005555555d4ee3 in lws_zalloc (size=8192, reason=0x5555555e9268 "context") at /opt/packages/warmcat/lib/core/alloc.c:215
+#2  0x000055555555fd77 in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:650
+#3  0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:41:14:2117] N: lws_create_context: LWS: 4.3.99-v4.3.0-424-ga74362ff, NET CLI SRV H1 H2 WS SS-JSON-POL ConMon ASYNC_DNS IPV6-on
+
+Breakpoint 1, lws_plat_init (context=0x55555560f2a0, info=0x7fffffffde80) at /opt/packages/warmcat/lib/plat/unix/unix-init.c:133
+133             if (!context->lws_lookup) {
+(gdb) c
+Continuing.
+[2025/01/03 00:41:16:1464] N: __lws_lc_tag:  ++ [wsi|0|pipe] (1)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 0
+New value = 1
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x5555556115a0) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x5555556115a0) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x5555556115a0) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x0000555555584b90 in lws_wsi_inject_to_loop (pt=0x55555560f5d8, wsi=0x5555556115a0) at /opt/packages/warmcat/lib/core-net/wsi.c:360
+#3  0x000055555557f4cc in __lws_create_event_pipes (context=0x55555560f2a0) at /opt/packages/warmcat/lib/core-net/vhost.c:1172
+#4  0x000055555556109d in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1332
+#5  0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:41:16:1542] N: __lws_lc_tag:  ++ [vh|0|netlink] (1)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 1
+New value = 2
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555611b30) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555611b30) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x555555611b30) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x0000555555584b90 in lws_wsi_inject_to_loop (pt=0x55555560f5d8, wsi=0x555555611b30) at /opt/packages/warmcat/lib/core-net/wsi.c:360
+#3  0x00005555555b9a84 in rops_pt_init_destroy_netlink (context=0x55555560f2a0, info=0x7fffffffde80, pt=0x55555560f5d8, destroy=0)
+    at /opt/packages/warmcat/lib/roles/netlink/ops-netlink.c:615
+#4  0x0000555555561178 in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1340
+#5  0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:41:16:1643] N: __lws_lc_tag:  ++ [vh|1|system||-1] (2)
+[2025/01/03 00:41:16:1644] N: __lws_lc_tag:  ++ [wsisrv|0|system|asyncdns] (1)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 2
+New value = 3
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562f690) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562f690) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562f690) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x00005555555890fd in lws_adopt_descriptor_vhost2 (new_wsi=0x55555562f690, type=LWS_ADOPT_RAW_SOCKET_UDP, fd=...) at /opt/packages/warmcat/lib/core-net/adopt.c:408
+#3  0x0000555555589b5f in lws_create_adopt_udp2 (wsi=0x55555562f690, ads=0x7fffffffd730 "127.0.0.53", r=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/adopt.c:774
+#4  0x0000555555571593 in lws_async_dns_complete (q=0x7fffffffd650, c=0x55555562ae00) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:118
+#5  0x0000555555573b63 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x7fffffffd850 "127.0.0.53", qtype=LWS_ADNS_RECORD_A, cb=0x5555555896cc <lws_create_adopt_udp2>, 
+    wsi=0x55555562f690, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:1072
+#6  0x0000555555589dd5 in lws_create_adopt_udp (vhost=0x55555562bde0, ads=0x7fffffffd850 "127.0.0.53", port=53, flags=0, protocol_name=0x5555555eb2ed "lws-async-dns", ifname=0x0, 
+    parent_wsi=0x0, opaque=0x55555562d350, retry_policy=0x55555560bcd0 <retry_policy>, fi_wsi_name=0x5555555eb30b "asyncdns") at /opt/packages/warmcat/lib/core-net/adopt.c:893
+#7  0x00005555555724b7 in lws_async_dns_create_server_wsi (context=0x55555560f2a0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:486
+#8  0x0000555555572622 in lws_async_dns_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:521
+#9  0x000055555557f13c in lws_create_vhost (context=0x55555560f2a0, info=0x7fffffffdb10) at /opt/packages/warmcat/lib/core-net/vhost.c:1051
+#10 0x00005555555612a7 in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1406
+#11 0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:41:16:1763] N: __lws_lc_tag:  ++ [wsicli|0|WS/h1/system/127.0.0.1] (1)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 3
+New value = 4
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x000055555558d366 in lws_client_connect_3_connect (wsi=0x55555562d4c0, ads=0x7fffffffc4d0 "127.0.0.1", result=0x0, n=16, opaque=0x0)
+    at /opt/packages/warmcat/lib/core-net/client/connect3.c:452
+#3  0x0000555555571593 in lws_async_dns_complete (q=0x7fffffffc3f0, c=0x55555562d3d0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:118
+#4  0x0000555555573b63 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x55555562b710 "127.0.0.1", qtype=LWS_ADNS_RECORD_A, 
+    cb=0x55555558c802 <lws_client_connect_3_connect>, wsi=0x55555562d4c0, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:1072
+#5  0x000055555558c479 in lws_client_connect_2_dnsreq (wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/core-net/client/connect2.c:371
+#6  0x000055555558aa6b in lws_http_client_connect_via_info2 (wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/core-net/client/connect.c:71
+#7  0x0000555555592134 in lws_header_table_attach (wsi=0x55555562d4c0, autoservice=0) at /opt/packages/warmcat/lib/roles/http/parsers.c:291
+#8  0x000055555559d983 in rops_client_bind_h1 (wsi=0x55555562d4c0, i=0x0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:1019
+#9  0x000055555558b978 in lws_client_connect_via_info (i=0x7fffffffc7b0) at /opt/packages/warmcat/lib/core-net/client/connect.c:437
+#10 0x000055555555f46d in ws_client_callback_protocol_init (wsi=0x7fffffffca70)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:38
+#11 0x000055555555f504 in client_callback (wsi=0x7fffffffca70, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:50
+#12 0x000055555557da0f in lws_protocol_init_vhost (vh=0x55555562bde0, any=0x7fffffffd038) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#13 0x000055555557dc73 in lws_protocol_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/core-net/vhost.c:518
+#14 0x000055555558ad40 in lws_client_connect_via_info (i=0x7fffffffd180) at /opt/packages/warmcat/lib/core-net/client/connect.c:142
+#15 0x000055555555f46d in ws_client_callback_protocol_init (wsi=0x7fffffffd440)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:38
+#16 0x000055555555f504 in client_callback (wsi=0x7fffffffd440, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:50
+#17 0x000055555557da0f in lws_protocol_init_vhost (vh=0x55555562bde0, any=0x0) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#18 0x0000555555561329 in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1414
+#19 0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:41:16:1916] N: [wsicli|0|WS/h1/system/127.0.0.1]: lws_client_connect_3_connect: trying 127.0.0.1
+[2025/01/03 00:41:16:1920] N: __lws_lc_tag:  ++ [wsicli|1|WS/h1/system/127.0.0.1] (2)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 4
+New value = 5
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555631190) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555631190) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x555555631190) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x000055555558d366 in lws_client_connect_3_connect (wsi=0x555555631190, ads=0x55555562d190 "127.0.0.1", result=0x0, n=16, opaque=0x0)
+    at /opt/packages/warmcat/lib/core-net/client/connect3.c:452
+#3  0x0000555555573820 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x55555562d190 "127.0.0.1", qtype=LWS_ADNS_RECORD_A, 
+    cb=0x55555558c802 <lws_client_connect_3_connect>, wsi=0x555555631190, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:997
+#4  0x000055555558c479 in lws_client_connect_2_dnsreq (wsi=0x555555631190) at /opt/packages/warmcat/lib/core-net/client/connect2.c:371
+#5  0x000055555558aa6b in lws_http_client_connect_via_info2 (wsi=0x555555631190) at /opt/packages/warmcat/lib/core-net/client/connect.c:71
+#6  0x0000555555592134 in lws_header_table_attach (wsi=0x555555631190, autoservice=0) at /opt/packages/warmcat/lib/roles/http/parsers.c:291
+#7  0x000055555559d983 in rops_client_bind_h1 (wsi=0x555555631190, i=0x0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:1019
+#8  0x000055555558b978 in lws_client_connect_via_info (i=0x7fffffffd180) at /opt/packages/warmcat/lib/core-net/client/connect.c:437
+#9  0x000055555555f46d in ws_client_callback_protocol_init (wsi=0x7fffffffd440)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:38
+#10 0x000055555555f504 in client_callback (wsi=0x7fffffffd440, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:50
+#11 0x000055555557da0f in lws_protocol_init_vhost (vh=0x55555562bde0, any=0x0) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#12 0x0000555555561329 in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1414
+#13 0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:41:16:2044] N: [wsicli|1|WS/h1/system/127.0.0.1]: lws_client_connect_3_connect: trying 127.0.0.1
+[2025/01/03 00:41:16:2048] N: __lws_lc_tag:  ++ [wsisrv|1|system|asyncdns] (2)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 5
+New value = 6
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555632f40) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555632f40) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x555555632f40) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x00005555555890fd in lws_adopt_descriptor_vhost2 (new_wsi=0x555555632f40, type=LWS_ADOPT_RAW_SOCKET_UDP, fd=...) at /opt/packages/warmcat/lib/core-net/adopt.c:408
+#3  0x0000555555589b5f in lws_create_adopt_udp2 (wsi=0x555555632f40, ads=0x7fffffffd970 "127.0.0.53", r=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/adopt.c:774
+#4  0x0000555555573820 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x7fffffffd970 "127.0.0.53", qtype=LWS_ADNS_RECORD_A, cb=0x5555555896cc <lws_create_adopt_udp2>, 
+    wsi=0x555555632f40, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:997
+#5  0x0000555555589dd5 in lws_create_adopt_udp (vhost=0x55555562bde0, ads=0x7fffffffd970 "127.0.0.53", port=53, flags=0, protocol_name=0x5555555eb2ed "lws-async-dns", ifname=0x0, 
+    parent_wsi=0x0, opaque=0x55555562c300, retry_policy=0x55555560bcd0 <retry_policy>, fi_wsi_name=0x5555555eb30b "asyncdns") at /opt/packages/warmcat/lib/core-net/adopt.c:893
+#6  0x00005555555724b7 in lws_async_dns_create_server_wsi (context=0x55555560f2a0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:486
+#7  0x0000555555572622 in lws_async_dns_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:521
+#8  0x0000555555561384 in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1420
+#9  0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:41:16:2160] N: __lws_lc_tag:  ++ [vh|2|default||-1] (3)
+
+Breakpoint 5, SSL_CTX_new (meth=0x7ffff7fb62a0 <TLS_client_method_data.14>) at ssl/ssl_lib.c:3414
+3414        return SSL_CTX_new_ex(NULL, NULL, meth);
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  SSL_CTX_new (meth=0x7ffff7fb62a0 <TLS_client_method_data.14>) at ssl/ssl_lib.c:3414
+#1  0x00005555555d366d in lws_tls_client_create_vhost_context (vh=0x55555562c660, info=0x7fffffffde80, cipher_list=0x0, ca_filepath=0x0, ca_mem=0x0, ca_mem_len=0, cert_filepath=0x0, 
+    cert_mem=0x0, cert_mem_len=0, private_key_filepath=0x0, key_mem=0x0, key_mem_len=0) at /opt/packages/warmcat/lib/tls/openssl/openssl-client.c:910
+#2  0x00005555555d1ae9 in lws_context_init_client_ssl (info=0x7fffffffde80, vhost=0x55555562c660) at /opt/packages/warmcat/lib/tls/tls-client.c:158
+#3  0x000055555557f00f in lws_create_vhost (context=0x55555560f2a0, info=0x7fffffffde80) at /opt/packages/warmcat/lib/core-net/vhost.c:1019
+#4  0x000055555556148b in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1460
+#5  0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:41:16:2277] N: __lws_lc_tag:  ++ [wsicli|2|WS/h1/default/127.0.0.1] (3)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 6
+New value = 7
+0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555674540) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  0x00005555555caae2 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555674540) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x0000555555581641 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x555555674540) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x000055555558d366 in lws_client_connect_3_connect (wsi=0x555555674540, ads=0x55555562fdd0 "127.0.0.1", result=0x0, n=16, opaque=0x0)
+    at /opt/packages/warmcat/lib/core-net/client/connect3.c:452
+#3  0x0000555555573820 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x55555562fdd0 "127.0.0.1", qtype=LWS_ADNS_RECORD_A, 
+    cb=0x55555558c802 <lws_client_connect_3_connect>, wsi=0x555555674540, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:997
+#4  0x000055555558c479 in lws_client_connect_2_dnsreq (wsi=0x555555674540) at /opt/packages/warmcat/lib/core-net/client/connect2.c:371
+#5  0x000055555558aa6b in lws_http_client_connect_via_info2 (wsi=0x555555674540) at /opt/packages/warmcat/lib/core-net/client/connect.c:71
+#6  0x0000555555592134 in lws_header_table_attach (wsi=0x555555674540, autoservice=0) at /opt/packages/warmcat/lib/roles/http/parsers.c:291
+#7  0x000055555559d983 in rops_client_bind_h1 (wsi=0x555555674540, i=0x0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:1019
+#8  0x000055555558b978 in lws_client_connect_via_info (i=0x7fffffffd010) at /opt/packages/warmcat/lib/core-net/client/connect.c:437
+#9  0x000055555555f46d in ws_client_callback_protocol_init (wsi=0x7fffffffd2d0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:38
+#10 0x000055555555f504 in client_callback (wsi=0x7fffffffd2d0, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:50
+#11 0x000055555557da0f in lws_protocol_init_vhost (vh=0x55555562c660, any=0x7fffffffd898) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#12 0x000055555557dc73 in lws_protocol_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/core-net/vhost.c:518
+#13 0x000055555557f160 in lws_create_vhost (context=0x55555560f2a0, info=0x7fffffffde80) at /opt/packages/warmcat/lib/core-net/vhost.c:1058
+#14 0x000055555556148b in lws_create_context (info=0x7fffffffde80) at /opt/packages/warmcat/lib/core/context.c:1460
+#15 0x000055555555f6f5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:102
+[2025/01/03 00:41:16:2422] N: [wsicli|2|WS/h1/default/127.0.0.1]: lws_client_connect_3_connect: trying 127.0.0.1
+
+Breakpoint 8, lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+35      {
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+#1  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#2  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#3  0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#4  0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#5  0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#6  0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#7  0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#8  0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+
+Breakpoint 8, lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+35      {
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+#1  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#2  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd980, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#3  0x000055555558e65d in lws_client_connect_4_established (wsi=0x55555562d4c0, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#4  0x000055555558dc44 in lws_client_connect_3_connect (wsi=0x55555562d4c0, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#5  0x00005555555b3418 in lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#6  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#7  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#8  0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#9  0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#10 0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#11 0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#12 0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#13 0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+
+Breakpoint 6, SSL_new (ctx=0x0) at ssl/ssl_lib.c:673
+673     {
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  SSL_new (ctx=0x0) at ssl/ssl_lib.c:673
+#1  0x00005555555d2176 in lws_ssl_client_bio_create (wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/tls/openssl/openssl-client.c:275
+#2  0x00005555555d1bec in lws_client_create_tls (wsi=0x55555562d4c0, pcce=0x7fffffffd788, do_c1=1) at /opt/packages/warmcat/lib/tls/tls-client.c:204
+#3  0x00005555555b36f4 in lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:185
+#4  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#5  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd980, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#6  0x000055555558e65d in lws_client_connect_4_established (wsi=0x55555562d4c0, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#7  0x000055555558dc44 in lws_client_connect_3_connect (wsi=0x55555562d4c0, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#8  0x00005555555b3418 in lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#9  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#10 0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#11 0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#12 0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#13 0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#14 0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#15 0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#16 0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+[2025/01/03 00:41:16:4198] E: SSL_new failed: error:00000063:lib(0)::reason(99)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 7
+New value = 6
+lws_plat_delete_socket_from_fds (context=0x55555560f2a0, wsi=0x55555562d4c0, m=3) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:259
+259     }
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  lws_plat_delete_socket_from_fds (context=0x55555560f2a0, wsi=0x55555562d4c0, m=3) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:259
+#1  0x0000555555581903 in __remove_wsi_socket_from_fds (wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/core-net/pollfd.c:424
+#2  0x000055555557952a in __lws_close_free_wsi (wsi=0x55555562d4c0, reason=LWS_CLOSE_STATUS_NOSTATUS, caller=0x5555555f66bd "cbail3") at /opt/packages/warmcat/lib/core-net/close.c:748
+#3  0x0000555555579f05 in lws_close_free_wsi (wsi=0x55555562d4c0, reason=LWS_CLOSE_STATUS_NOSTATUS, caller=0x5555555f66bd "cbail3") at /opt/packages/warmcat/lib/core-net/close.c:1051
+#4  0x00005555555b4023 in lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:488
+#5  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#6  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd980, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#7  0x000055555558e65d in lws_client_connect_4_established (wsi=0x55555562d4c0, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#8  0x000055555558dc44 in lws_client_connect_3_connect (wsi=0x55555562d4c0, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#9  0x00005555555b3418 in lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#10 0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#11 0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#12 0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#13 0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#14 0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#15 0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#16 0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#17 0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+[2025/01/03 00:41:16:4344] N: __lws_lc_untag:  -- [wsicli|0|WS/h1/system/127.0.0.1] (2) 258.022ms
+
+Breakpoint 8, lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+35      {
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+#1  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#2  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#3  0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#4  0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#5  0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#6  0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#7  0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#8  0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+
+Breakpoint 8, lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+35      {
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+#1  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555674540, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#2  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd980, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#3  0x000055555558e65d in lws_client_connect_4_established (wsi=0x555555674540, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#4  0x000055555558dc44 in lws_client_connect_3_connect (wsi=0x555555674540, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#5  0x00005555555b3418 in lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#6  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#7  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#8  0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#9  0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#10 0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#11 0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#12 0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#13 0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+
+Breakpoint 6, SSL_new (ctx=0x5555556407b0) at ssl/ssl_lib.c:673
+673     {
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  SSL_new (ctx=0x5555556407b0) at ssl/ssl_lib.c:673
+#1  0x00005555555d2176 in lws_ssl_client_bio_create (wsi=0x555555674540) at /opt/packages/warmcat/lib/tls/openssl/openssl-client.c:275
+#2  0x00005555555d1bec in lws_client_create_tls (wsi=0x555555674540, pcce=0x7fffffffd788, do_c1=1) at /opt/packages/warmcat/lib/tls/tls-client.c:204
+#3  0x00005555555b36f4 in lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:185
+#4  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555674540, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#5  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd980, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#6  0x000055555558e65d in lws_client_connect_4_established (wsi=0x555555674540, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#7  0x000055555558dc44 in lws_client_connect_3_connect (wsi=0x555555674540, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#8  0x00005555555b3418 in lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#9  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#10 0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#11 0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#12 0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#13 0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#14 0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#15 0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#16 0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+
+Breakpoint 8, lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+35      {
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+#1  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#2  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127c0, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#3  0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#4  0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#5  0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#6  0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#7  0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#8  0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+
+Breakpoint 8, lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+35      {
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+#1  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#2  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd980, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#3  0x000055555558e65d in lws_client_connect_4_established (wsi=0x555555631190, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#4  0x000055555558dc44 in lws_client_connect_3_connect (wsi=0x555555631190, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#5  0x00005555555b3418 in lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#6  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#7  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127c0, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#8  0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#9  0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#10 0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#11 0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#12 0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#13 0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+
+Breakpoint 6, SSL_new (ctx=0x0) at ssl/ssl_lib.c:673
+673     {
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  SSL_new (ctx=0x0) at ssl/ssl_lib.c:673
+#1  0x00005555555d2176 in lws_ssl_client_bio_create (wsi=0x555555631190) at /opt/packages/warmcat/lib/tls/openssl/openssl-client.c:275
+#2  0x00005555555d1bec in lws_client_create_tls (wsi=0x555555631190, pcce=0x7fffffffd788, do_c1=1) at /opt/packages/warmcat/lib/tls/tls-client.c:204
+#3  0x00005555555b36f4 in lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:185
+#4  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#5  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd980, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#6  0x000055555558e65d in lws_client_connect_4_established (wsi=0x555555631190, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#7  0x000055555558dc44 in lws_client_connect_3_connect (wsi=0x555555631190, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#8  0x00005555555b3418 in lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#9  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#10 0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127c0, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#11 0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#12 0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#13 0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#14 0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#15 0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#16 0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+[2025/01/03 00:41:16:5045] E: SSL_new failed: error:00000063:lib(0)::reason(99)
+
+Hardware watchpoint 4: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 6
+New value = 5
+lws_plat_delete_socket_from_fds (context=0x55555560f2a0, wsi=0x555555631190, m=4) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:259
+259     }
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  lws_plat_delete_socket_from_fds (context=0x55555560f2a0, wsi=0x555555631190, m=4) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:259
+#1  0x0000555555581903 in __remove_wsi_socket_from_fds (wsi=0x555555631190) at /opt/packages/warmcat/lib/core-net/pollfd.c:424
+#2  0x000055555557952a in __lws_close_free_wsi (wsi=0x555555631190, reason=LWS_CLOSE_STATUS_NOSTATUS, caller=0x5555555f66bd "cbail3") at /opt/packages/warmcat/lib/core-net/close.c:748
+#3  0x0000555555579f05 in lws_close_free_wsi (wsi=0x555555631190, reason=LWS_CLOSE_STATUS_NOSTATUS, caller=0x5555555f66bd "cbail3") at /opt/packages/warmcat/lib/core-net/close.c:1051
+#4  0x00005555555b4023 in lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:488
+#5  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x7fffffffd980) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#6  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd980, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#7  0x000055555558e65d in lws_client_connect_4_established (wsi=0x555555631190, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#8  0x000055555558dc44 in lws_client_connect_3_connect (wsi=0x555555631190, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#9  0x00005555555b3418 in lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#10 0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#11 0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127c0, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#12 0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#13 0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#14 0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#15 0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#16 0x000055555555f64a in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#17 0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+[2025/01/03 00:41:16:5189] N: __lws_lc_untag:  -- [wsicli|1|WS/h1/system/127.0.0.1] (1) 326.877ms
+
+Breakpoint 8, lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+35      {
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+#1  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#2  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#3  0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#4  0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#5  0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#6  0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#7  0x000055555555f64a in call_context (context=0x55555560f2a0, count=2)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#8  0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+[2025/01/03 00:41:16:5296] N: accepting self-signed certificate (verify_callback)
+
+Breakpoint 8, lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+35      {
+2025年 01月 03日 星期五 00:41:16 HKT
+#0  lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+#1  0x000055555559d31a in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#2  0x000055555558367d in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#3  0x00005555555c8da7 in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#4  0x00005555555c91cd in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#5  0x00005555555c9234 in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#6  0x0000555555583865 in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#7  0x000055555555f64a in call_context (context=0x55555560f2a0, count=3)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:89
+#8  0x000055555555f74e in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls.c:111
+[2025/01/03 00:41:16:5388] N: Connected to server ok!
+[2025/01/03 00:41:16:5390] N: send: hello 0
+[2025/01/03 00:41:16:5391] N: send: hello 1
+[2025/01/03 00:41:16:5398] N: send: hello 2
+[2025/01/03 00:41:16:5401] N: receive: hello 0
+[2025/01/03 00:41:16:5405] N: receive: hello 1
+[2025/01/03 00:41:16:5407] N: receive: hello 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /opt/packages/warmcat/build/bin/ws-client-send-recv-tls-error 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Hardware watchpoint 3: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = <unreadable>
+New value = 0
+__memset_avx2_unaligned_erms () at ../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S:328
+warning: 328    ../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S: 没有那个文件或目录
+2025年 01月 03日 星期五 01:38:11 HKT
+#0  __memset_avx2_unaligned_erms () at ../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S:328
+#1  0x00005555555d4d4a in lws_zalloc (size=8192, reason=0x5555555e9218 "context") at /opt/packages/warmcat/lib/core/alloc.c:215
+#2  0x000055555555fbde in lws_create_context (info=0x7fffffffde70) at /opt/packages/warmcat/lib/core/context.c:650
+#3  0x000055555555f55c in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:72
+[2025/01/03 01:38:11:6878] N: lws_create_context: LWS: 4.3.99-v4.3.0-424-ga74362ff, NET CLI SRV H1 H2 WS SS-JSON-POL ConMon ASYNC_DNS IPV6-on
+[2025/01/03 01:38:11:6879] N: __lws_lc_tag:  ++ [wsi|0|pipe] (1)
+
+Hardware watchpoint 3: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 0
+New value = 1
+0x00005555555ca949 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x5555556115a0) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 01:38:11 HKT
+#0  0x00005555555ca949 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x5555556115a0) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x00005555555814a8 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x5555556115a0) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x00005555555849f7 in lws_wsi_inject_to_loop (pt=0x55555560f5d8, wsi=0x5555556115a0) at /opt/packages/warmcat/lib/core-net/wsi.c:360
+#3  0x000055555557f333 in __lws_create_event_pipes (context=0x55555560f2a0) at /opt/packages/warmcat/lib/core-net/vhost.c:1172
+#4  0x0000555555560f04 in lws_create_context (info=0x7fffffffde70) at /opt/packages/warmcat/lib/core/context.c:1332
+#5  0x000055555555f55c in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:72
+[2025/01/03 01:38:11:6946] N: __lws_lc_tag:  ++ [vh|0|netlink] (1)
+
+Hardware watchpoint 3: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 1
+New value = 2
+0x00005555555ca949 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555611b30) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 01:38:11 HKT
+#0  0x00005555555ca949 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555611b30) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x00005555555814a8 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x555555611b30) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x00005555555849f7 in lws_wsi_inject_to_loop (pt=0x55555560f5d8, wsi=0x555555611b30) at /opt/packages/warmcat/lib/core-net/wsi.c:360
+#3  0x00005555555b98eb in rops_pt_init_destroy_netlink (context=0x55555560f2a0, info=0x7fffffffde70, pt=0x55555560f5d8, destroy=0)
+    at /opt/packages/warmcat/lib/roles/netlink/ops-netlink.c:615
+#4  0x0000555555560fdf in lws_create_context (info=0x7fffffffde70) at /opt/packages/warmcat/lib/core/context.c:1340
+#5  0x000055555555f55c in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:72
+[2025/01/03 01:38:11:7024] N: __lws_lc_tag:  ++ [vh|1|system||-1] (2)
+[2025/01/03 01:38:11:7026] N: __lws_lc_tag:  ++ [wsisrv|0|system|asyncdns] (1)
+
+Hardware watchpoint 3: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 2
+New value = 3
+0x00005555555ca949 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562f690) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 01:38:11 HKT
+#0  0x00005555555ca949 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562f690) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x00005555555814a8 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562f690) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x0000555555588f64 in lws_adopt_descriptor_vhost2 (new_wsi=0x55555562f690, type=LWS_ADOPT_RAW_SOCKET_UDP, fd=...) at /opt/packages/warmcat/lib/core-net/adopt.c:408
+#3  0x00005555555899c6 in lws_create_adopt_udp2 (wsi=0x55555562f690, ads=0x7fffffffd720 "127.0.0.53", r=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/adopt.c:774
+#4  0x00005555555713fa in lws_async_dns_complete (q=0x7fffffffd640, c=0x55555562ae00) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:118
+#5  0x00005555555739ca in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x7fffffffd840 "127.0.0.53", qtype=LWS_ADNS_RECORD_A, cb=0x555555589533 <lws_create_adopt_udp2>, 
+    wsi=0x55555562f690, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:1072
+#6  0x0000555555589c3c in lws_create_adopt_udp (vhost=0x55555562bde0, ads=0x7fffffffd840 "127.0.0.53", port=53, flags=0, protocol_name=0x5555555eb2ad "lws-async-dns", ifname=0x0, 
+    parent_wsi=0x0, opaque=0x55555562d350, retry_policy=0x55555560bcd0 <retry_policy>, fi_wsi_name=0x5555555eb2cb "asyncdns") at /opt/packages/warmcat/lib/core-net/adopt.c:893
+#7  0x000055555557231e in lws_async_dns_create_server_wsi (context=0x55555560f2a0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:486
+#8  0x0000555555572489 in lws_async_dns_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:521
+#9  0x000055555557efa3 in lws_create_vhost (context=0x55555560f2a0, info=0x7fffffffdb00) at /opt/packages/warmcat/lib/core-net/vhost.c:1051
+#10 0x000055555556110e in lws_create_context (info=0x7fffffffde70) at /opt/packages/warmcat/lib/core/context.c:1406
+#11 0x000055555555f55c in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:72
+
+Breakpoint 7, lws_client_connect_via_info (i=0x7fffffffc7c0) at /opt/packages/warmcat/lib/core-net/client/connect.c:168
+168             if (!vh) {
+2025年 01月 03日 星期五 01:38:11 HKT
+#0  lws_client_connect_via_info (i=0x7fffffffc7c0) at /opt/packages/warmcat/lib/core-net/client/connect.c:168
+#1  0x000055555555f433 in ws_client_callback_protocol_init (wsi=0x7fffffffca70)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:33
+#2  0x000055555555f497 in client_callback (wsi=0x7fffffffca70, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:43
+#3  0x000055555557d876 in lws_protocol_init_vhost (vh=0x55555562bde0, any=0x7fffffffd038) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#4  0x000055555557dada in lws_protocol_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/core-net/vhost.c:518
+#5  0x000055555558aba7 in lws_client_connect_via_info (i=0x7fffffffd180) at /opt/packages/warmcat/lib/core-net/client/connect.c:142
+#6  0x000055555555f433 in ws_client_callback_protocol_init (wsi=0x7fffffffd430)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:33
+#7  0x000055555555f497 in client_callback (wsi=0x7fffffffd430, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:43
+#8  0x000055555557d876 in lws_protocol_init_vhost (vh=0x55555562bde0, any=0x0) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#9  0x0000555555561190 in lws_create_context (info=0x7fffffffde70) at /opt/packages/warmcat/lib/core/context.c:1414
+#10 0x000055555555f55c in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:72
+$1 = {proxy_basic_auth_token = '\000' <repeats 127 times>, h2 = {set = {s = {1, 65536, 0, 24, 0, 16384, 4096, 0, 1}}}, http = {http_proxy_address = '\000' <repeats 127 times>, 
+    mount_list = 0x0, error_document_404 = 0x0, http_proxy_port = 0}, lc = {gutag = "[vh|1|system||-1]", '\000' <repeats 46 times>, list = {prev = 0x555555611d08, next = 0x0, 
+      owner = 0x55555560f7e8}, us_creation = 31830463630, log_cx = 0x55555560e1a0 <log_cx>}, vh_being_destroyed_list = {prev = 0x0, next = 0x0, owner = 0x0}, tls_sessions = {
+    tail = 0x0, head = 0x0, count = 0}, options = 0, context = 0x55555560f2a0, vhost_next = 0x0, retry_policy = 0x55555560f778, ss_handle = 0x0, listen_wsi = {tail = 0x0, head = 0x0, 
+    count = 0}, name = 0x55555562c158 "system", iface = 0x0, listen_accept_role = 0x0, listen_accept_protocol = 0x0, unix_socket_perms = 0x0, finalize = 0x0, finalize_arg = 0x0, 
+  protocols = 0x55555562d1f0, protocol_vh_privs = 0x0, pvo = 0x0, headers = 0x0, same_vh_protocol_owner = 0x55555562e8f0, no_listener_vhost_list = 0x0, abstract_instances_owner = {
+    tail = 0x0, head = 0x0, count = 0}, dll_cli_active_conns_owner = {tail = 0x0, head = 0x0, count = 0}, vh_awaiting_socket_owner = {tail = 0x0, head = 0x0, count = 0}, tls = {
+    ssl_ctx = 0x0, ssl_client_ctx = 0x0, tcr = 0x0, alpn = 0x0, ss = 0x0, alloc_cert_path = 0x0, key_path = 0x0, ecdh_curve = '\000' <repeats 15 times>, alpn_ctx = {
+      data = '\000' <repeats 22 times>, len = 0 '\000'}, use_ssl = 0, allow_non_ssl_on_ssl_port = 0, ssl_info_event_mask = 0, user_supplied_ssl_ctx = 0, skipped_certs = 0}, user = 0x0, 
+  listen_port = -1, bind_iface = 0, count_protocols = 6, ka_time = 0, ka_probes = 0, ka_interval = 0, keepalive_timeout = 5, timeout_secs_ah_idle = 10, connect_timeout_secs = 20, 
+  fo_listen_queue = 0, count_bound_wsi = 1, tls_session_cache_max = 0, allocated_vhost_protocols = 1 '\001', created_vhost_protocols = 0 '\000', being_destroyed = 0 '\000', 
+  from_ss_policy = 0 '\000', default_protocol_index = 0 '\000', raw_protocol_index = 0 '\000'}
+[2025/01/03 01:38:11:7360] N: __lws_lc_tag:  ++ [wsicli|0|WS/h1/system/127.0.0.1] (1)
+
+Hardware watchpoint 3: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 3
+New value = 4
+0x00005555555ca949 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 01:38:11 HKT
+#0  0x00005555555ca949 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x00005555555814a8 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x000055555558d1cd in lws_client_connect_3_connect (wsi=0x55555562d4c0, ads=0x7fffffffc4e0 "127.0.0.1", result=0x0, n=16, opaque=0x0)
+    at /opt/packages/warmcat/lib/core-net/client/connect3.c:452
+#3  0x00005555555713fa in lws_async_dns_complete (q=0x7fffffffc400, c=0x55555562d3d0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:118
+#4  0x00005555555739ca in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x55555562b710 "127.0.0.1", qtype=LWS_ADNS_RECORD_A, 
+    cb=0x55555558c669 <lws_client_connect_3_connect>, wsi=0x55555562d4c0, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:1072
+#5  0x000055555558c2e0 in lws_client_connect_2_dnsreq (wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/core-net/client/connect2.c:371
+#6  0x000055555558a8d2 in lws_http_client_connect_via_info2 (wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/core-net/client/connect.c:71
+#7  0x0000555555591f9b in lws_header_table_attach (wsi=0x55555562d4c0, autoservice=0) at /opt/packages/warmcat/lib/roles/http/parsers.c:291
+#8  0x000055555559d7ea in rops_client_bind_h1 (wsi=0x55555562d4c0, i=0x0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:1019
+#9  0x000055555558b7df in lws_client_connect_via_info (i=0x7fffffffc7c0) at /opt/packages/warmcat/lib/core-net/client/connect.c:437
+#10 0x000055555555f433 in ws_client_callback_protocol_init (wsi=0x7fffffffca70)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:33
+#11 0x000055555555f497 in client_callback (wsi=0x7fffffffca70, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:43
+#12 0x000055555557d876 in lws_protocol_init_vhost (vh=0x55555562bde0, any=0x7fffffffd038) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#13 0x000055555557dada in lws_protocol_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/core-net/vhost.c:518
+#14 0x000055555558aba7 in lws_client_connect_via_info (i=0x7fffffffd180) at /opt/packages/warmcat/lib/core-net/client/connect.c:142
+#15 0x000055555555f433 in ws_client_callback_protocol_init (wsi=0x7fffffffd430)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:33
+#16 0x000055555555f497 in client_callback (wsi=0x7fffffffd430, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:43
+#17 0x000055555557d876 in lws_protocol_init_vhost (vh=0x55555562bde0, any=0x0) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#18 0x0000555555561190 in lws_create_context (info=0x7fffffffde70) at /opt/packages/warmcat/lib/core/context.c:1414
+#19 0x000055555555f55c in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:72
+[2025/01/03 01:38:11:7657] N: [wsicli|0|WS/h1/system/127.0.0.1]: lws_client_connect_3_connect: trying 127.0.0.1
+
+Breakpoint 7, lws_client_connect_via_info (i=0x7fffffffd180) at /opt/packages/warmcat/lib/core-net/client/connect.c:168
+168             if (!vh) {
+2025年 01月 03日 星期五 01:38:11 HKT
+#0  lws_client_connect_via_info (i=0x7fffffffd180) at /opt/packages/warmcat/lib/core-net/client/connect.c:168
+#1  0x000055555555f433 in ws_client_callback_protocol_init (wsi=0x7fffffffd430)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:33
+#2  0x000055555555f497 in client_callback (wsi=0x7fffffffd430, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:43
+#3  0x000055555557d876 in lws_protocol_init_vhost (vh=0x55555562bde0, any=0x0) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#4  0x0000555555561190 in lws_create_context (info=0x7fffffffde70) at /opt/packages/warmcat/lib/core/context.c:1414
+#5  0x000055555555f55c in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:72
+$2 = {proxy_basic_auth_token = '\000' <repeats 127 times>, h2 = {set = {s = {1, 65536, 0, 24, 0, 16384, 4096, 0, 1}}}, http = {http_proxy_address = '\000' <repeats 127 times>, 
+    mount_list = 0x0, error_document_404 = 0x0, http_proxy_port = 0}, lc = {gutag = "[vh|1|system||-1]", '\000' <repeats 46 times>, list = {prev = 0x555555611d08, next = 0x0, 
+      owner = 0x55555560f7e8}, us_creation = 31830463630, log_cx = 0x55555560e1a0 <log_cx>}, vh_being_destroyed_list = {prev = 0x0, next = 0x0, owner = 0x0}, tls_sessions = {
+    tail = 0x0, head = 0x0, count = 0}, options = 0, context = 0x55555560f2a0, vhost_next = 0x0, retry_policy = 0x55555560f778, ss_handle = 0x0, listen_wsi = {tail = 0x0, head = 0x0, 
+    count = 0}, name = 0x55555562c158 "system", iface = 0x0, listen_accept_role = 0x0, listen_accept_protocol = 0x0, unix_socket_perms = 0x0, finalize = 0x0, finalize_arg = 0x0, 
+  protocols = 0x55555562d1f0, protocol_vh_privs = 0x0, pvo = 0x0, headers = 0x0, same_vh_protocol_owner = 0x55555562e8f0, no_listener_vhost_list = 0x0, abstract_instances_owner = {
+    tail = 0x0, head = 0x0, count = 0}, dll_cli_active_conns_owner = {tail = 0x0, head = 0x0, count = 0}, vh_awaiting_socket_owner = {tail = 0x0, head = 0x0, count = 0}, tls = {
+    ssl_ctx = 0x0, ssl_client_ctx = 0x0, tcr = 0x0, alpn = 0x0, ss = 0x0, alloc_cert_path = 0x0, key_path = 0x0, ecdh_curve = '\000' <repeats 15 times>, alpn_ctx = {
+      data = '\000' <repeats 22 times>, len = 0 '\000'}, use_ssl = 0, allow_non_ssl_on_ssl_port = 0, ssl_info_event_mask = 0, user_supplied_ssl_ctx = 0, skipped_certs = 0}, user = 0x0, 
+  listen_port = -1, bind_iface = 0, count_protocols = 6, ka_time = 0, ka_probes = 0, ka_interval = 0, keepalive_timeout = 5, timeout_secs_ah_idle = 10, connect_timeout_secs = 20, 
+  fo_listen_queue = 0, count_bound_wsi = 2, tls_session_cache_max = 0, allocated_vhost_protocols = 1 '\001', created_vhost_protocols = 1 '\001', being_destroyed = 0 '\000', 
+  from_ss_policy = 0 '\000', default_protocol_index = 0 '\000', raw_protocol_index = 0 '\000'}
+[2025/01/03 01:38:11:7792] N: __lws_lc_tag:  ++ [wsicli|1|WS/h1/system/127.0.0.1] (2)
+
+Hardware watchpoint 3: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 4
+New value = 5
+0x00005555555ca949 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555631190) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 01:38:11 HKT
+#0  0x00005555555ca949 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555631190) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x00005555555814a8 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x555555631190) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x000055555558d1cd in lws_client_connect_3_connect (wsi=0x555555631190, ads=0x55555562d190 "127.0.0.1", result=0x0, n=16, opaque=0x0)
+    at /opt/packages/warmcat/lib/core-net/client/connect3.c:452
+#3  0x0000555555573687 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x55555562d190 "127.0.0.1", qtype=LWS_ADNS_RECORD_A, 
+    cb=0x55555558c669 <lws_client_connect_3_connect>, wsi=0x555555631190, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:997
+#4  0x000055555558c2e0 in lws_client_connect_2_dnsreq (wsi=0x555555631190) at /opt/packages/warmcat/lib/core-net/client/connect2.c:371
+#5  0x000055555558a8d2 in lws_http_client_connect_via_info2 (wsi=0x555555631190) at /opt/packages/warmcat/lib/core-net/client/connect.c:71
+#6  0x0000555555591f9b in lws_header_table_attach (wsi=0x555555631190, autoservice=0) at /opt/packages/warmcat/lib/roles/http/parsers.c:291
+#7  0x000055555559d7ea in rops_client_bind_h1 (wsi=0x555555631190, i=0x0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:1019
+#8  0x000055555558b7df in lws_client_connect_via_info (i=0x7fffffffd180) at /opt/packages/warmcat/lib/core-net/client/connect.c:437
+#9  0x000055555555f433 in ws_client_callback_protocol_init (wsi=0x7fffffffd430)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:33
+#10 0x000055555555f497 in client_callback (wsi=0x7fffffffd430, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:43
+#11 0x000055555557d876 in lws_protocol_init_vhost (vh=0x55555562bde0, any=0x0) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#12 0x0000555555561190 in lws_create_context (info=0x7fffffffde70) at /opt/packages/warmcat/lib/core/context.c:1414
+#13 0x000055555555f55c in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:72
+[2025/01/03 01:38:11:7902] N: [wsicli|1|WS/h1/system/127.0.0.1]: lws_client_connect_3_connect: trying 127.0.0.1
+[2025/01/03 01:38:11:7909] N: __lws_lc_tag:  ++ [wsisrv|1|system|asyncdns] (2)
+
+Hardware watchpoint 3: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 5
+New value = 6
+0x00005555555ca949 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555632f40) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 01:38:11 HKT
+#0  0x00005555555ca949 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555632f40) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x00005555555814a8 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x555555632f40) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x0000555555588f64 in lws_adopt_descriptor_vhost2 (new_wsi=0x555555632f40, type=LWS_ADOPT_RAW_SOCKET_UDP, fd=...) at /opt/packages/warmcat/lib/core-net/adopt.c:408
+#3  0x00005555555899c6 in lws_create_adopt_udp2 (wsi=0x555555632f40, ads=0x7fffffffd960 "127.0.0.53", r=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/adopt.c:774
+#4  0x0000555555573687 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x7fffffffd960 "127.0.0.53", qtype=LWS_ADNS_RECORD_A, cb=0x555555589533 <lws_create_adopt_udp2>, 
+    wsi=0x555555632f40, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:997
+#5  0x0000555555589c3c in lws_create_adopt_udp (vhost=0x55555562bde0, ads=0x7fffffffd960 "127.0.0.53", port=53, flags=0, protocol_name=0x5555555eb2ad "lws-async-dns", ifname=0x0, 
+    parent_wsi=0x0, opaque=0x55555562c300, retry_policy=0x55555560bcd0 <retry_policy>, fi_wsi_name=0x5555555eb2cb "asyncdns") at /opt/packages/warmcat/lib/core-net/adopt.c:893
+#6  0x000055555557231e in lws_async_dns_create_server_wsi (context=0x55555560f2a0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:486
+#7  0x0000555555572489 in lws_async_dns_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:521
+#8  0x00005555555611eb in lws_create_context (info=0x7fffffffde70) at /opt/packages/warmcat/lib/core/context.c:1420
+#9  0x000055555555f55c in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:72
+[2025/01/03 01:38:11:8005] N: __lws_lc_tag:  ++ [vh|2|default||-1] (3)
+
+Breakpoint 1, SSL_CTX_new (meth=0x7ffff7fb62a0 <TLS_client_method_data.14>) at ssl/ssl_lib.c:3414
+3414        return SSL_CTX_new_ex(NULL, NULL, meth);
+2025年 01月 03日 星期五 01:38:12 HKT
+#0  SSL_CTX_new (meth=0x7ffff7fb62a0 <TLS_client_method_data.14>) at ssl/ssl_lib.c:3414
+#1  0x00005555555d34d4 in lws_tls_client_create_vhost_context (vh=0x55555562c660, info=0x7fffffffde70, cipher_list=0x0, ca_filepath=0x0, ca_mem=0x0, ca_mem_len=0, cert_filepath=0x0, 
+    cert_mem=0x0, cert_mem_len=0, private_key_filepath=0x0, key_mem=0x0, key_mem_len=0) at /opt/packages/warmcat/lib/tls/openssl/openssl-client.c:910
+#2  0x00005555555d1950 in lws_context_init_client_ssl (info=0x7fffffffde70, vhost=0x55555562c660) at /opt/packages/warmcat/lib/tls/tls-client.c:158
+#3  0x000055555557ee76 in lws_create_vhost (context=0x55555560f2a0, info=0x7fffffffde70) at /opt/packages/warmcat/lib/core-net/vhost.c:1019
+#4  0x00005555555612f2 in lws_create_context (info=0x7fffffffde70) at /opt/packages/warmcat/lib/core/context.c:1460
+#5  0x000055555555f55c in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:72
+
+Breakpoint 7, lws_client_connect_via_info (i=0x7fffffffd010) at /opt/packages/warmcat/lib/core-net/client/connect.c:168
+168             if (!vh) {
+2025年 01月 03日 星期五 01:38:12 HKT
+#0  lws_client_connect_via_info (i=0x7fffffffd010) at /opt/packages/warmcat/lib/core-net/client/connect.c:168
+#1  0x000055555555f433 in ws_client_callback_protocol_init (wsi=0x7fffffffd2c0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:33
+#2  0x000055555555f497 in client_callback (wsi=0x7fffffffd2c0, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:43
+#3  0x000055555557d876 in lws_protocol_init_vhost (vh=0x55555562c660, any=0x7fffffffd888) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#4  0x000055555557dada in lws_protocol_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/core-net/vhost.c:518
+#5  0x000055555557efc7 in lws_create_vhost (context=0x55555560f2a0, info=0x7fffffffde70) at /opt/packages/warmcat/lib/core-net/vhost.c:1058
+#6  0x00005555555612f2 in lws_create_context (info=0x7fffffffde70) at /opt/packages/warmcat/lib/core/context.c:1460
+#7  0x000055555555f55c in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:72
+$3 = {proxy_basic_auth_token = '\000' <repeats 127 times>, h2 = {set = {s = {1, 65536, 0, 24, 0, 16384, 4096, 0, 1}}}, http = {http_proxy_address = '\000' <repeats 127 times>, 
+    mount_list = 0x0, error_document_404 = 0x0, http_proxy_port = 0}, lc = {gutag = "[vh|2|default||-1]", '\000' <repeats 45 times>, list = {prev = 0x55555562bf60, next = 0x0, 
+      owner = 0x55555560f7e8}, us_creation = 31830561709, log_cx = 0x55555560e1a0 <log_cx>}, vh_being_destroyed_list = {prev = 0x0, next = 0x0, owner = 0x0}, tls_sessions = {
+    tail = 0x0, head = 0x0, count = 0}, options = 4096, context = 0x55555560f2a0, vhost_next = 0x0, retry_policy = 0x55555560f778, ss_handle = 0x0, listen_wsi = {tail = 0x0, 
+    head = 0x0, count = 0}, name = 0x55555562c9d8 "default", iface = 0x0, listen_accept_role = 0x0, listen_accept_protocol = 0x0, unix_socket_perms = 0x0, finalize = 0x0, 
+  finalize_arg = 0x0, protocols = 0x55555562c380, protocol_vh_privs = 0x0, pvo = 0x0, headers = 0x0, same_vh_protocol_owner = 0x55555562c4e0, no_listener_vhost_list = 0x0, 
+  abstract_instances_owner = {tail = 0x0, head = 0x0, count = 0}, dll_cli_active_conns_owner = {tail = 0x0, head = 0x0, count = 0}, vh_awaiting_socket_owner = {tail = 0x0, head = 0x0, 
+    count = 0}, tls = {ssl_ctx = 0x0, ssl_client_ctx = 0x5555556407b0, tcr = 0x555555672900, alpn = 0x0, ss = 0x0, alloc_cert_path = 0x0, key_path = 0x0, 
+    ecdh_curve = '\000' <repeats 15 times>, alpn_ctx = {data = '\000' <repeats 22 times>, len = 0 '\000'}, use_ssl = 0, allow_non_ssl_on_ssl_port = 0, ssl_info_event_mask = 0, 
+    user_supplied_ssl_ctx = 0, skipped_certs = 0}, user = 0x0, listen_port = -1, bind_iface = 0, count_protocols = 5, ka_time = 0, ka_probes = 0, ka_interval = 0, 
+  keepalive_timeout = 5, timeout_secs_ah_idle = 10, connect_timeout_secs = 20, fo_listen_queue = 0, count_bound_wsi = 0, tls_session_cache_max = 10, 
+  allocated_vhost_protocols = 1 '\001', created_vhost_protocols = 0 '\000', being_destroyed = 0 '\000', from_ss_policy = 0 '\000', default_protocol_index = 0 '\000', 
+  raw_protocol_index = 0 '\000'}
+[2025/01/03 01:38:12:1459] N: __lws_lc_tag:  ++ [wsicli|2|WS/h1/default/127.0.0.1] (3)
+
+Hardware watchpoint 3: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 6
+New value = 7
+0x00005555555ca949 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555674540) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+245             pt->fds[pt->fds_count++].revents = 0;
+2025年 01月 03日 星期五 01:38:12 HKT
+#0  0x00005555555ca949 in lws_plat_insert_socket_into_fds (context=0x55555560f2a0, wsi=0x555555674540) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:245
+#1  0x00005555555814a8 in __insert_wsi_socket_into_fds (context=0x55555560f2a0, wsi=0x555555674540) at /opt/packages/warmcat/lib/core-net/pollfd.c:329
+#2  0x000055555558d1cd in lws_client_connect_3_connect (wsi=0x555555674540, ads=0x55555562fdd0 "127.0.0.1", result=0x0, n=16, opaque=0x0)
+    at /opt/packages/warmcat/lib/core-net/client/connect3.c:452
+#3  0x0000555555573687 in lws_async_dns_query (context=0x55555560f2a0, tsi=0, name=0x55555562fdd0 "127.0.0.1", qtype=LWS_ADNS_RECORD_A, 
+    cb=0x55555558c669 <lws_client_connect_3_connect>, wsi=0x555555674540, opaque=0x0, pq=0x0) at /opt/packages/warmcat/lib/system/async-dns/async-dns.c:997
+#4  0x000055555558c2e0 in lws_client_connect_2_dnsreq (wsi=0x555555674540) at /opt/packages/warmcat/lib/core-net/client/connect2.c:371
+#5  0x000055555558a8d2 in lws_http_client_connect_via_info2 (wsi=0x555555674540) at /opt/packages/warmcat/lib/core-net/client/connect.c:71
+#6  0x0000555555591f9b in lws_header_table_attach (wsi=0x555555674540, autoservice=0) at /opt/packages/warmcat/lib/roles/http/parsers.c:291
+#7  0x000055555559d7ea in rops_client_bind_h1 (wsi=0x555555674540, i=0x0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:1019
+#8  0x000055555558b7df in lws_client_connect_via_info (i=0x7fffffffd010) at /opt/packages/warmcat/lib/core-net/client/connect.c:437
+#9  0x000055555555f433 in ws_client_callback_protocol_init (wsi=0x7fffffffd2c0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:33
+#10 0x000055555555f497 in client_callback (wsi=0x7fffffffd2c0, reason=LWS_CALLBACK_PROTOCOL_INIT, user=0x0, in=0x0, len=0)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:43
+#11 0x000055555557d876 in lws_protocol_init_vhost (vh=0x55555562c660, any=0x7fffffffd888) at /opt/packages/warmcat/lib/core-net/vhost.c:469
+#12 0x000055555557dada in lws_protocol_init (context=0x55555560f2a0) at /opt/packages/warmcat/lib/core-net/vhost.c:518
+#13 0x000055555557efc7 in lws_create_vhost (context=0x55555560f2a0, info=0x7fffffffde70) at /opt/packages/warmcat/lib/core-net/vhost.c:1058
+#14 0x00005555555612f2 in lws_create_context (info=0x7fffffffde70) at /opt/packages/warmcat/lib/core/context.c:1460
+#15 0x000055555555f55c in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:72
+[2025/01/03 01:38:12:1567] N: [wsicli|2|WS/h1/default/127.0.0.1]: lws_client_connect_3_connect: trying 127.0.0.1
+
+Breakpoint 4, lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+35      {
+2025年 01月 03日 星期五 01:38:12 HKT
+#0  lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+#1  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#2  0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#3  0x00005555555c8c0e in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#4  0x00005555555c9034 in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#5  0x00005555555c909b in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#6  0x00005555555836cc in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#7  0x000055555555f4c5 in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:60
+#8  0x000055555555f5b5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:81
+
+Breakpoint 4, lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+35      {
+2025年 01月 03日 星期五 01:38:12 HKT
+#0  lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+#1  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#2  0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd970, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#3  0x000055555558e4c4 in lws_client_connect_4_established (wsi=0x55555562d4c0, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#4  0x000055555558daab in lws_client_connect_3_connect (wsi=0x55555562d4c0, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#5  0x00005555555b327f in lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#6  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#7  0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#8  0x00005555555c8c0e in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#9  0x00005555555c9034 in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#10 0x00005555555c909b in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#11 0x00005555555836cc in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#12 0x000055555555f4c5 in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:60
+#13 0x000055555555f5b5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:81
+
+Breakpoint 2, SSL_new (ctx=0x0) at ssl/ssl_lib.c:673
+673     {
+2025年 01月 03日 星期五 01:38:12 HKT
+#0  SSL_new (ctx=0x0) at ssl/ssl_lib.c:673
+#1  0x00005555555d1fdd in lws_ssl_client_bio_create (wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/tls/openssl/openssl-client.c:275
+#2  0x00005555555d1a53 in lws_client_create_tls (wsi=0x55555562d4c0, pcce=0x7fffffffd778, do_c1=1) at /opt/packages/warmcat/lib/tls/tls-client.c:204
+#3  0x00005555555b355b in lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:185
+#4  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#5  0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd970, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#6  0x000055555558e4c4 in lws_client_connect_4_established (wsi=0x55555562d4c0, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#7  0x000055555558daab in lws_client_connect_3_connect (wsi=0x55555562d4c0, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#8  0x00005555555b327f in lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#9  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#10 0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#11 0x00005555555c8c0e in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#12 0x00005555555c9034 in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#13 0x00005555555c909b in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#14 0x00005555555836cc in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#15 0x000055555555f4c5 in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:60
+#16 0x000055555555f5b5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:81
+[2025/01/03 01:38:12:3249] E: SSL_new failed: error:00000063:lib(0)::reason(99)
+
+Hardware watchpoint 3: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 7
+New value = 6
+lws_plat_delete_socket_from_fds (context=0x55555560f2a0, wsi=0x55555562d4c0, m=3) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:259
+259     }
+2025年 01月 03日 星期五 01:38:12 HKT
+#0  lws_plat_delete_socket_from_fds (context=0x55555560f2a0, wsi=0x55555562d4c0, m=3) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:259
+#1  0x000055555558176a in __remove_wsi_socket_from_fds (wsi=0x55555562d4c0) at /opt/packages/warmcat/lib/core-net/pollfd.c:424
+#2  0x0000555555579391 in __lws_close_free_wsi (wsi=0x55555562d4c0, reason=LWS_CLOSE_STATUS_NOSTATUS, caller=0x5555555f667d "cbail3") at /opt/packages/warmcat/lib/core-net/close.c:748
+#3  0x0000555555579d6c in lws_close_free_wsi (wsi=0x55555562d4c0, reason=LWS_CLOSE_STATUS_NOSTATUS, caller=0x5555555f667d "cbail3") at /opt/packages/warmcat/lib/core-net/close.c:1051
+#4  0x00005555555b3e8a in lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:488
+#5  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#6  0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd970, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#7  0x000055555558e4c4 in lws_client_connect_4_established (wsi=0x55555562d4c0, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#8  0x000055555558daab in lws_client_connect_3_connect (wsi=0x55555562d4c0, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#9  0x00005555555b327f in lws_http_client_socket_service (wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#10 0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x55555562d4c0, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#11 0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#12 0x00005555555c8c0e in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#13 0x00005555555c9034 in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#14 0x00005555555c909b in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#15 0x00005555555836cc in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#16 0x000055555555f4c5 in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:60
+#17 0x000055555555f5b5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:81
+[2025/01/03 01:38:12:3451] N: __lws_lc_untag:  -- [wsicli|0|WS/h1/system/127.0.0.1] (2) 609.044ms
+
+Breakpoint 4, lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+35      {
+2025年 01月 03日 星期五 01:38:12 HKT
+#0  lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+#1  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#2  0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#3  0x00005555555c8c0e in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#4  0x00005555555c9034 in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#5  0x00005555555c909b in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#6  0x00005555555836cc in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#7  0x000055555555f4c5 in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:60
+#8  0x000055555555f5b5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:81
+
+Breakpoint 4, lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+35      {
+2025年 01月 03日 星期五 01:38:12 HKT
+#0  lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+#1  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555674540, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#2  0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd970, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#3  0x000055555558e4c4 in lws_client_connect_4_established (wsi=0x555555674540, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#4  0x000055555558daab in lws_client_connect_3_connect (wsi=0x555555674540, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#5  0x00005555555b327f in lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#6  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#7  0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#8  0x00005555555c8c0e in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#9  0x00005555555c9034 in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#10 0x00005555555c909b in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#11 0x00005555555836cc in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#12 0x000055555555f4c5 in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:60
+#13 0x000055555555f5b5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:81
+
+Breakpoint 2, SSL_new (ctx=0x5555556407b0) at ssl/ssl_lib.c:673
+673     {
+2025年 01月 03日 星期五 01:38:12 HKT
+#0  SSL_new (ctx=0x5555556407b0) at ssl/ssl_lib.c:673
+#1  0x00005555555d1fdd in lws_ssl_client_bio_create (wsi=0x555555674540) at /opt/packages/warmcat/lib/tls/openssl/openssl-client.c:275
+#2  0x00005555555d1a53 in lws_client_create_tls (wsi=0x555555674540, pcce=0x7fffffffd778, do_c1=1) at /opt/packages/warmcat/lib/tls/tls-client.c:204
+#3  0x00005555555b355b in lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:185
+#4  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555674540, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#5  0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd970, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#6  0x000055555558e4c4 in lws_client_connect_4_established (wsi=0x555555674540, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#7  0x000055555558daab in lws_client_connect_3_connect (wsi=0x555555674540, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#8  0x00005555555b327f in lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#9  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#10 0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#11 0x00005555555c8c0e in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#12 0x00005555555c9034 in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#13 0x00005555555c909b in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#14 0x00005555555836cc in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#15 0x000055555555f4c5 in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:60
+#16 0x000055555555f5b5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:81
+
+Breakpoint 4, lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+35      {
+2025年 01月 03日 星期五 01:38:12 HKT
+#0  lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+#1  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#2  0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127c0, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#3  0x00005555555c8c0e in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#4  0x00005555555c9034 in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#5  0x00005555555c909b in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#6  0x00005555555836cc in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#7  0x000055555555f4c5 in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:60
+#8  0x000055555555f5b5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:81
+
+Breakpoint 4, lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+35      {
+2025年 01月 03日 星期五 01:38:12 HKT
+#0  lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+#1  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#2  0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd970, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#3  0x000055555558e4c4 in lws_client_connect_4_established (wsi=0x555555631190, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#4  0x000055555558daab in lws_client_connect_3_connect (wsi=0x555555631190, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#5  0x00005555555b327f in lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#6  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#7  0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127c0, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#8  0x00005555555c8c0e in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#9  0x00005555555c9034 in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#10 0x00005555555c909b in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#11 0x00005555555836cc in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#12 0x000055555555f4c5 in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:60
+#13 0x000055555555f5b5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:81
+
+Breakpoint 2, SSL_new (ctx=0x0) at ssl/ssl_lib.c:673
+673     {
+2025年 01月 03日 星期五 01:38:12 HKT
+#0  SSL_new (ctx=0x0) at ssl/ssl_lib.c:673
+#1  0x00005555555d1fdd in lws_ssl_client_bio_create (wsi=0x555555631190) at /opt/packages/warmcat/lib/tls/openssl/openssl-client.c:275
+#2  0x00005555555d1a53 in lws_client_create_tls (wsi=0x555555631190, pcce=0x7fffffffd778, do_c1=1) at /opt/packages/warmcat/lib/tls/tls-client.c:204
+#3  0x00005555555b355b in lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:185
+#4  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#5  0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd970, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#6  0x000055555558e4c4 in lws_client_connect_4_established (wsi=0x555555631190, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#7  0x000055555558daab in lws_client_connect_3_connect (wsi=0x555555631190, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#8  0x00005555555b327f in lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#9  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#10 0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127c0, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#11 0x00005555555c8c0e in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#12 0x00005555555c9034 in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#13 0x00005555555c909b in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#14 0x00005555555836cc in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#15 0x000055555555f4c5 in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:60
+#16 0x000055555555f5b5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:81
+[2025/01/03 01:38:12:4234] E: SSL_new failed: error:00000063:lib(0)::reason(99)
+
+Hardware watchpoint 3: ((struct lws_context *)0x55555560f2a0)->pt[0].fds_count
+
+Old value = 6
+New value = 5
+lws_plat_delete_socket_from_fds (context=0x55555560f2a0, wsi=0x555555631190, m=4) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:259
+259     }
+2025年 01月 03日 星期五 01:38:12 HKT
+#0  lws_plat_delete_socket_from_fds (context=0x55555560f2a0, wsi=0x555555631190, m=4) at /opt/packages/warmcat/lib/plat/unix/unix-fds.c:259
+#1  0x000055555558176a in __remove_wsi_socket_from_fds (wsi=0x555555631190) at /opt/packages/warmcat/lib/core-net/pollfd.c:424
+#2  0x0000555555579391 in __lws_close_free_wsi (wsi=0x555555631190, reason=LWS_CLOSE_STATUS_NOSTATUS, caller=0x5555555f667d "cbail3") at /opt/packages/warmcat/lib/core-net/close.c:748
+#3  0x0000555555579d6c in lws_close_free_wsi (wsi=0x555555631190, reason=LWS_CLOSE_STATUS_NOSTATUS, caller=0x5555555f667d "cbail3") at /opt/packages/warmcat/lib/core-net/close.c:1051
+#4  0x00005555555b3e8a in lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:488
+#5  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x7fffffffd970) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#6  0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x7fffffffd970, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#7  0x000055555558e4c4 in lws_client_connect_4_established (wsi=0x555555631190, wsi_piggyback=0x0, plen=0) at /opt/packages/warmcat/lib/core-net/client/connect4.c:321
+#8  0x000055555558daab in lws_client_connect_3_connect (wsi=0x555555631190, ads=0x0, result=0x0, n=0, opaque=0x0) at /opt/packages/warmcat/lib/core-net/client/connect3.c:734
+#9  0x00005555555b327f in lws_http_client_socket_service (wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:70
+#10 0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555631190, pollfd=0x5555556127c0) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#11 0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127c0, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#12 0x00005555555c8c0e in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#13 0x00005555555c9034 in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#14 0x00005555555c909b in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#15 0x00005555555836cc in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#16 0x000055555555f4c5 in call_context (context=0x55555560f2a0, count=1)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:60
+#17 0x000055555555f5b5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:81
+[2025/01/03 01:38:12:4439] N: __lws_lc_untag:  -- [wsicli|1|WS/h1/system/127.0.0.1] (1) 664.616ms
+
+Breakpoint 4, lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+35      {
+2025年 01月 03日 星期五 01:38:12 HKT
+#0  lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+#1  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#2  0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#3  0x00005555555c8c0e in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#4  0x00005555555c9034 in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#5  0x00005555555c909b in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#6  0x00005555555836cc in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#7  0x000055555555f4c5 in call_context (context=0x55555560f2a0, count=2)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:60
+#8  0x000055555555f5b5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:81
+[2025/01/03 01:38:12:4547] N: accepting self-signed certificate (verify_callback)
+
+Breakpoint 4, lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+35      {
+2025年 01月 03日 星期五 01:38:12 HKT
+#0  lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+#1  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#2  0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#3  0x00005555555c8c0e in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#4  0x00005555555c9034 in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#5  0x00005555555c909b in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#6  0x00005555555836cc in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#7  0x000055555555f4c5 in call_context (context=0x55555560f2a0, count=3)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:60
+#8  0x000055555555f5b5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:81
+
+Breakpoint 4, lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+35      {
+2025年 01月 03日 星期五 01:38:12 HKT
+#0  lws_http_client_socket_service (wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/http/client/client-http.c:35
+#1  0x000055555559d181 in rops_handle_POLLIN_h1 (pt=0x55555560f5d8, wsi=0x555555674540, pollfd=0x5555556127b8) at /opt/packages/warmcat/lib/roles/h1/ops-h1.c:701
+#2  0x00005555555834e4 in lws_service_fd_tsi (context=0x55555560f2a0, pollfd=0x5555556127b8, tsi=0) at /opt/packages/warmcat/lib/core-net/service.c:766
+#3  0x00005555555c8c0e in _lws_plat_service_forced_tsi (context=0x55555560f2a0, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:51
+#4  0x00005555555c9034 in _lws_plat_service_tsi (context=0x55555560f2a0, timeout_ms=2000000000, tsi=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:216
+#5  0x00005555555c909b in lws_plat_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/plat/unix/unix-service.c:235
+#6  0x00005555555836cc in lws_service (context=0x55555560f2a0, timeout_ms=0) at /opt/packages/warmcat/lib/core-net/service.c:842
+#7  0x000055555555f4c5 in call_context (context=0x55555560f2a0, count=4)
+    at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:60
+#8  0x000055555555f5b5 in main () at /opt/packages/warmcat/minimal-examples-lowlevel/ws-client/ws-client-send-recv-tls/ws-client-send-recv-tls-error-minimal.c:81

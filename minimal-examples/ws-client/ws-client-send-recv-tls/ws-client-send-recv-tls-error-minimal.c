@@ -4,11 +4,6 @@
 static volatile int exit_sig = 0;
 #define MAX_PAYLOAD_SIZE 1024
 
-void signal_handle(int sig) {
-    lwsl_notice("receive signal %d", sig);
-    exit_sig = 1;
-}
-
 struct session_data {
     int msg_count;
     unsigned char buf[LWS_PRE + MAX_PAYLOAD_SIZE];
@@ -43,30 +38,9 @@ int ws_client_callback_protocol_init(struct lws *wsi) {
 }
 
 int client_callback(struct lws *wsi, enum lws_callback_reasons reason, void *user, void *in, size_t len) {
-    struct session_data *data = (struct session_data *) user;
-
     switch (reason) {
         case LWS_CALLBACK_PROTOCOL_INIT:
             ws_client_callback_protocol_init(wsi);
-            break;
-        case LWS_CALLBACK_CLIENT_ESTABLISHED:
-            lwsl_notice("Connected to server ok!\n");
-            lws_callback_on_writable(wsi);
-            break;
-        case LWS_CALLBACK_CLIENT_RECEIVE:
-            lwsl_notice("receive: %s\n", (char *) in);
-            break;
-        case LWS_CALLBACK_CLIENT_WRITEABLE:
-            if (data->msg_count < 3) {
-                memset(data->buf, 0, sizeof(data->buf));
-                char *msg = (char *) &data->buf[LWS_PRE];
-                data->len = sprintf(msg, "hello %d", data->msg_count);
-                lwsl_notice("send: %s\n", msg);
-                lws_write(wsi, &data->buf[LWS_PRE], (size_t) data->len, LWS_WRITE_TEXT);
-
-                data->msg_count++;
-                lws_callback_on_writable(wsi);
-            }
             break;
         default:
             break;
@@ -87,7 +61,6 @@ void call_context(struct lws_context *context, int count)
 }
 
 int main() {
-    signal(SIGTERM, signal_handle);
     int logs = LLL_USER | LLL_ERR | LLL_WARN | LLL_NOTICE;
     lws_set_log_level(logs, NULL);
 
