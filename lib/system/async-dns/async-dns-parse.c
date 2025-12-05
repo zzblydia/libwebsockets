@@ -551,12 +551,15 @@ lws_adns_parse_udp(lws_async_dns_t *dns, const uint8_t *pkt, size_t len)
 	if (lws_ser_ru16be(pkt + DHO_NQUERIES) != 1)
 		return;
 
+    lwsl_hexdump_err(pkt,len);
+
 	/* match both A and AAAA queries if any */
+    lwsl_err("%s: dns response tid(Transaction ID) 0x%x\n", __func__, lws_ser_ru16be(pkt + DHO_TID));
 
 	q = lws_adns_get_query(dns, 0, &dns->waiting,
 			       lws_ser_ru16be(pkt + DHO_TID), NULL);
 	if (!q) {
-		lwsl_info("%s: dropping unknown query tid 0x%x\n",
+		lwsl_err("%s: dropping unknown query tid 0x%x\n",
 			    __func__, lws_ser_ru16be(pkt + DHO_TID));
 
 		return;

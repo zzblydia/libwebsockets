@@ -10,7 +10,7 @@
 static volatile int exit_sig = 0;
 #define MAX_PAYLOAD_SIZE 1024
 
-#define CLIENT_NUM 300
+#define CLIENT_NUM 300 // max connection num
 
 void signal_handle(int sig) {
     lwsl_notice("receive signal %d", sig);
@@ -66,7 +66,7 @@ int client_simple_callback(struct lws *wsi, enum lws_callback_reasons reason, vo
             break;
         }
         case LWS_CALLBACK_CLIENT_ESTABLISHED:
-            lwsl_wsi_user(wsi, "Connected to server ok index %d", index);
+            lwsl_wsi_user(wsi, "LWS_CALLBACK_CLIENT_ESTABLISHED index %d", index);
             g_luckClient[index].established = 1;
             break;
         case LWS_CALLBACK_CLIENT_CONNECTION_ERROR:
@@ -81,17 +81,48 @@ int client_simple_callback(struct lws *wsi, enum lws_callback_reasons reason, vo
     return 0;
 }
 
-int main() {
+// show index when gdb
+void main_poll(int index)
+{
+    lws_service(g_luckClient[index].context, -1);
+}
+
+int main(int argc, char *argv[]) {
+
+    if (argc < 3) {
+        printf("usage: ./ws-client-test-async-dns para1 para2\n");
+        printf("para1: num of connections to be established max 300\n");
+        printf("para2: rate of concurrent connections\n");
+        exit(0);
+    }
+
+    int numConnections = atoi(argv[1]);
+    if (numConnections > CLIENT_NUM) {
+        numConnections = CLIENT_NUM;
+    } else if (numConnections <= 0) {
+        printf("numConnections 0, exit\n");
+        exit(0);
+    }
+
+    int rate = atoi(argv[2]);
+    if (rate > 10 ) {
+        rate = 10;
+    } else if (rate <= 0) {
+        rate = 1;
+    }
+
+    printf("numConnections %d, rate %d\n", numConnections, rate);
+
     signal(SIGTERM, signal_handle);
-    int logs = LLL_USER | LLL_ERR | LLL_WARN | LLL_NOTICE;
+    int logs = LLL_USER | LLL_ERR | LLL_WARN ;
     lws_set_log_level(logs, NULL);
 
     struct lws_context_creation_info ctx_info = {0};
     ctx_info.port = CONTEXT_PORT_NO_LISTEN;
     ctx_info.iface = NULL;
     ctx_info.protocols = protocols;
-    //ctx_info.timeout_secs = 3;
-    //ctx_info.connect_timeout_secs = 3;
+    ctx_info.timeout_secs = 3;
+    ctx_info.connect_timeout_secs = 3;
 
     for (int i = 0; i < CLIENT_NUM; i++) {
         g_luckClient[i].context = NULL;
@@ -103,8 +134,9 @@ int main() {
     int count = 0;
     time_t timePast = 0;
     time_t timeNow;
-    for (int i = 0; i <= CLIENT_NUM && !exit_sig; i++) {
-        if (i == CLIENT_NUM) {
+    int caps = 0;
+    for (int i = 0; i <= numConnections && !exit_sig; i++) {
+        if (i == numConnections) {
             i = 0;
             count = 0;
             usleep(20 * 1000);
@@ -116,16 +148,20 @@ int main() {
             ctx_info.user = &(g_luckClient[i].index);
             g_luckClient[i].context = lws_create_context(&ctx_info);
             g_luckClient[i].startTime = timeNow;
-            timePast = timeNow;
+            caps++;
+            if (caps == rate) {
+                timePast = timeNow;
+                caps = 0;
+            }
         }
 
         if (g_luckClient[i].context != NULL) {
-            lws_service(g_luckClient[i].context, -1);
+            main_poll(i);
         }
 
-        // destroy when doesn't finish connection within 4 seconds
-        if (g_luckClient[i].established == 1 ||
-            (g_luckClient[i].startTime != 0 && timeNow - g_luckClient[i].startTime >= 4)) {
+        // destroy if connected >10s or can't connect in 4s
+        if ((g_luckClient[i].established == 1 && timeNow - g_luckClient[i].startTime > 10) ||
+            (g_luckClient[i].startTime != 0 && g_luckClient[i].established == 0 && timeNow - g_luckClient[i].startTime >= 4)) {
             if (g_luckClient[i].context != NULL) {
                 lws_context_destroy(g_luckClient[i].context);
                 g_luckClient[i].context = NULL;
@@ -133,7 +169,7 @@ int main() {
             count++;
         }
 
-        if (count == CLIENT_NUM) {
+        if (count == numConnections) {
             break;
         }
     }

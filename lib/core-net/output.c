@@ -267,6 +267,7 @@ lws_ssl_capable_read_no_ssl(struct lws *wsi, unsigned char *buf, size_t len)
 #endif
 				len, 0);
 	en = LWS_ERRNO;
+    lwsl_wsi_err(wsi, "%s fd %d recv len %d", __func__, wsi->desc.sockfd, n);
 	if (n >= 0) {
 
 		if (!n && wsi->unix_skt)
@@ -349,7 +350,7 @@ lws_ssl_capable_write_no_ssl(struct lws *wsi, unsigned char *buf, size_t len)
 				(int)
 #endif
 					len, MSG_NOSIGNAL);
-//	lwsl_info("%s: sent len %d result %d", __func__, len, n);
+    lwsl_wsi_err(wsi, "%s: fd %d sent len %lu result %d", __func__, wsi->desc.sockfd, len, n);
 
 #if defined(LWS_WITH_UDP)
 post_send:
