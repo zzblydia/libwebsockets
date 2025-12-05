@@ -762,6 +762,12 @@ lws_create_adopt_udp2(struct lws *wsi, const char *ads,
 #endif
 		}
 
+        struct sockaddr_in local;
+        socklen_t len = sizeof(local);
+        getsockname(sock.sockfd, (struct sockaddr*)&local, &len);
+        lwsl_err("%s: will send dns with fd %d ip %s port %d\n", __func__, sock.sockfd,
+            inet_ntoa(local.sin_addr), ntohs(local.sin_port));
+
 		if (wsi->udp)
 			wsi->udp->sa46 = s->dest;
 		wsi->sa46_peer = s->dest;

@@ -849,6 +849,7 @@ lws_async_dns_query(struct lws_context *context, int tsi, const char *name,
 	}
 
 	LADNS_MOST_RECENT_TID(q) &= 0xfffe;
+    lwsl_cx_err(context, "will send dns with tid 0x%x", q->tid[0]);
 	q->context = context;
 	q->tsi = (uint8_t)tsi;
 	q->opaque = opaque;

@@ -1,0 +1,73 @@
+/opt/websocket/libwebsockets-4.3.3/build/bin$ ./ws-client-test-async-dns 10 1
+numConnections 10, rate 1
+[2025/12/05 23:02:09:5626] E: lws_create_adopt_udp2: will send dns with ip 192.168.8.62 port 44811
+[2025/12/05 23:02:09:5627] U: : client_simple_callback: LWS_CALLBACK_PROTOCOL_INIT index 0
+[2025/12/05 23:02:09:5627] E: lws_async_dns_query: will send dns with tid 0xe3e2
+[2025/12/05 23:02:09:5836] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0xe3e3
+[2025/12/05 23:02:09:6047] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0xe3e2
+[2025/12/05 23:02:09:6470] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_ESTABLISHED index 0
+[2025/12/05 23:02:10:0146] E: lws_create_adopt_udp2: will send dns with ip 192.168.8.62 port 51015
+[2025/12/05 23:02:10:0146] U: : client_simple_callback: LWS_CALLBACK_PROTOCOL_INIT index 1
+[2025/12/05 23:02:10:0147] E: lws_async_dns_query: will send dns with tid 0xc088
+[2025/12/05 23:02:10:0355] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0xc089
+[2025/12/05 23:02:10:0568] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0xc088
+[2025/12/05 23:02:10:0988] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_ESTABLISHED index 1
+[2025/12/05 23:02:11:0027] E: lws_create_adopt_udp2: will send dns with ip 192.168.8.62 port 50534
+[2025/12/05 23:02:11:0031] U: : client_simple_callback: LWS_CALLBACK_PROTOCOL_INIT index 2
+[2025/12/05 23:02:11:0031] E: lws_async_dns_query: will send dns with tid 0xf862
+[2025/12/05 23:02:11:0247] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0xf863
+[2025/12/05 23:02:11:0461] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0xf862
+[2025/12/05 23:02:11:0877] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_ESTABLISHED index 2
+[2025/12/05 23:02:12:0140] E: lws_create_adopt_udp2: will send dns with ip 192.168.8.62 port 46640
+[2025/12/05 23:02:12:0140] U: : client_simple_callback: LWS_CALLBACK_PROTOCOL_INIT index 3
+[2025/12/05 23:02:12:0141] E: lws_async_dns_query: will send dns with tid 0x979c
+[2025/12/05 23:02:12:0353] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0x979d
+[2025/12/05 23:02:12:0576] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0x979c
+[2025/12/05 23:02:12:0987] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_ESTABLISHED index 3
+[2025/12/05 23:02:13:0191] E: lws_create_adopt_udp2: will send dns with ip 192.168.8.62 port 41825
+[2025/12/05 23:02:13:0194] U: : client_simple_callback: LWS_CALLBACK_PROTOCOL_INIT index 4
+[2025/12/05 23:02:13:0195] E: lws_async_dns_query: will send dns with tid 0xc85e
+[2025/12/05 23:02:13:0405] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0xc85f
+[2025/12/05 23:02:13:0621] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0xc85e
+[2025/12/05 23:02:13:1043] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_ESTABLISHED index 4
+[2025/12/05 23:02:14:0071] E: lws_create_adopt_udp2: will send dns with ip 192.168.8.62 port 33115
+[2025/12/05 23:02:14:0072] U: : client_simple_callback: LWS_CALLBACK_PROTOCOL_INIT index 5
+[2025/12/05 23:02:14:0072] E: lws_async_dns_query: will send dns with tid 0x980
+[2025/12/05 23:02:14:0280] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0x981
+[2025/12/05 23:02:14:0499] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0x980
+[2025/12/05 23:02:14:0920] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_ESTABLISHED index 5
+[2025/12/05 23:02:15:0176] E: lws_create_adopt_udp2: will send dns with ip 192.168.8.62 port 32921
+[2025/12/05 23:02:15:0181] U: : client_simple_callback: LWS_CALLBACK_PROTOCOL_INIT index 6
+[2025/12/05 23:02:15:0183] E: lws_async_dns_query: will send dns with tid 0x63ba
+[2025/12/05 23:02:15:0395] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0x63bb
+[2025/12/05 23:02:15:0604] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0x63ba
+[2025/12/05 23:02:15:1021] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_ESTABLISHED index 6
+[2025/12/05 23:02:16:0103] E: lws_create_adopt_udp2: will send dns with ip 192.168.8.62 port 34646
+[2025/12/05 23:02:16:0107] U: : client_simple_callback: LWS_CALLBACK_PROTOCOL_INIT index 7
+[2025/12/05 23:02:16:0108] E: lws_async_dns_query: will send dns with tid 0x8a4e
+[2025/12/05 23:02:16:0313] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0x8a4f
+[2025/12/05 23:02:16:0525] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0x8a4e
+[2025/12/05 23:02:16:0942] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_ESTABLISHED index 7
+[2025/12/05 23:02:17:0182] E: lws_create_adopt_udp2: will send dns with ip 192.168.8.62 port 46205
+[2025/12/05 23:02:17:0182] U: : client_simple_callback: LWS_CALLBACK_PROTOCOL_INIT index 8
+[2025/12/05 23:02:17:0182] E: lws_async_dns_query: will send dns with tid 0x49ba
+[2025/12/05 23:02:17:0397] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0x49bb
+[2025/12/05 23:02:17:0608] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0x49ba
+[2025/12/05 23:02:17:1031] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_ESTABLISHED index 8
+[2025/12/05 23:02:18:0092] E: lws_create_adopt_udp2: will send dns with ip 192.168.8.62 port 38163
+[2025/12/05 23:02:18:0092] U: : client_simple_callback: LWS_CALLBACK_PROTOCOL_INIT index 9
+[2025/12/05 23:02:18:0092] E: lws_async_dns_query: will send dns with tid 0xcc64
+[2025/12/05 23:02:18:0298] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0xcc65
+[2025/12/05 23:02:18:0512] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0xcc64
+[2025/12/05 23:02:18:0924] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_ESTABLISHED index 9
+[2025/12/05 23:02:20:0078] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_CLOSED index 0
+[2025/12/05 23:02:21:0154] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_CLOSED index 1
+[2025/12/05 23:02:22:0055] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_CLOSED index 2
+[2025/12/05 23:02:23:0158] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_CLOSED index 3
+[2025/12/05 23:02:24:0028] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_CLOSED index 4
+[2025/12/05 23:02:25:0101] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_CLOSED index 5
+[2025/12/05 23:02:26:0190] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_CLOSED index 6
+[2025/12/05 23:02:27:0020] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_CLOSED index 7
+[2025/12/05 23:02:28:0048] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_CLOSED index 8
+[2025/12/05 23:02:29:0116] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_CLOSED index 9
+/opt/websocket/libwebsockets-4.3.3/build/bin$ 

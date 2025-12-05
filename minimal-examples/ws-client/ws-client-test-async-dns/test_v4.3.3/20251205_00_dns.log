@@ -1,0 +1,18 @@
+[2025/12/05 23:10:57:7763] N: lws_create_context: LWS: 4.3.3-unknown, NET CLI SRV H1 H2 WS ConMon ASYNC_DNS IPV6-on
+[2025/12/05 23:10:57:7764] N: __lws_lc_tag:  ++ [wsi|0|pipe] (1)
+[2025/12/05 23:10:57:7765] N: __lws_lc_tag:  ++ [vh|0|system||-1] (1)
+[2025/12/05 23:10:57:7765] N: __lws_lc_tag:  ++ [wsisrv|0|adopted] (1)
+[2025/12/05 23:10:57:7766] E: lws_create_adopt_udp2: will send dns with ip 192.168.8.62 port 38230
+[2025/12/05 23:10:57:7766] N: __lws_lc_tag:  ++ [vh|1|default||-1] (2)
+[2025/12/05 23:10:57:7766] U: : client_simple_callback: LWS_CALLBACK_PROTOCOL_INIT index 0
+[2025/12/05 23:10:57:7766] N: __lws_lc_tag:  ++ [wsicli|0|WS/h1/default/goodluck.com] (1)
+[2025/12/05 23:10:57:7766] E: lws_async_dns_query: will send dns with tid 0x90e4
+[2025/12/05 23:10:57:7978] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0x90e5
+[2025/12/05 23:10:57:8185] E: lws_adns_parse_udp: dns response tid(Transaction ID) 0x90e4
+[2025/12/05 23:10:57:8604] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_ESTABLISHED index 0
+[2025/12/05 23:11:08:0141] N: __lws_lc_untag:  -- [wsi|0|pipe] (0) 10.237s
+[2025/12/05 23:11:08:0142] U: [wsicli|0|WS/h1/default/goodluck.com]: client_simple_callback: LWS_CALLBACK_CLIENT_CLOSED index 0
+[2025/12/05 23:11:08:0146] N: __lws_lc_untag:  -- [vh|1|default||-1] (1) 10.238s
+[2025/12/05 23:11:08:0150] N: __lws_lc_untag:  -- [wsicli|0|WS/h1/default/goodluck.com] (0) 10.238s
+[2025/12/05 23:11:08:0151] N: __lws_lc_untag:  -- [vh|0|system||-1] (0) 10.238s
+[2025/12/05 23:11:08:0151] N: __lws_lc_untag:  -- [wsisrv|0|adopted] (0) 10.238s
