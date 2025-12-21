@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h> // usleep
-#include "ws-client-interface.h"
+
+#include "ws-utils.h"
 
 WstClient g_client[100] = {0};
 
@@ -49,6 +50,7 @@ char *g_serverAddress = "127.0.0.1";
 unsigned short g_serverPort = 8001;
 
 int main() {
+    // 初始化
     WstInit();
     WstClient *client = &g_client[1];
     client->callbackIndex = 1;
