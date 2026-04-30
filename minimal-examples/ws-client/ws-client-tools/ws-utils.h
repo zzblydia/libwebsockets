@@ -1,40 +1,50 @@
 #ifndef WS_UTILS_H
 #define WS_UTILS_H
 
-#define WS_GENERAL_LEN 128
-#define WST_CALLBACK_INDEX_NULL 0xFFFF
+#define WS_GENERAL_LEN_128 128
+#define WS_GENERAL_LEN_256 256
+#define MAX_PAYLOAD_SIZE 10240 // 接口单次接收最大数据长度.
+
+typedef enum {
+    URI_TYPE_IPV4,
+    URI_TYPE_IPV6,
+    URI_TYPE_DOMAIN,
+    URI_TYPE_BUTT
+} UriType;
 
 typedef struct {
-    unsigned short callbackIndex;   // 回调指示连接序号,初始化以后不再变化.
+    unsigned short callbackIndex;   // 记录调用者序号,回调时返回,初始化以后不再变化.
 
-    char clientIp[WS_GENERAL_LEN];  // 指定客户端ip或者建立连接后使用的本端ip
-    unsigned short clientPort;      // 记录真实的客户端端口, 因为暂不支持指定客户端端口
+    char clientIp[WS_GENERAL_LEN_128];  // 指定客户端ip或者建立连接后记录使用的本端ip.
+    unsigned short clientPort;      // 记录使用的本端ip端口, 因为暂不支持指定客户端端口
+    char serverIp[WS_GENERAL_LEN_128];  // 建立连接后记录使用的远端ip.
+    unsigned short serverPort;      // 建立连接后记录使用的远端端口
 
-    char serverAddressType; // 0:ipv4 1:ipv6 2:domain
-    char serverAddress[WS_GENERAL_LEN]; // 前缀必须为 wss/https/ws/http
-    char certPath[WS_GENERAL_LEN];  // pem cert path or ca cert path
+    char serverUriType; // 0:ipv4 1:ipv6 2:domain(可能包含非标准端口)
+    char serverUri[WS_GENERAL_LEN_128]; // 前缀必须为 wss/https/ws/http
+    char certPath[WS_GENERAL_LEN_128];  // 双向认证时客户端证书的路径(pem或者ca)
 
     void *wsi;
 
-    char *sendBuf;
-    int *sendBufLen;
-    int *sendBufType;
-    int maxSendBufLen;
+    int bufDataType; // 发送或者接收的数据类型, 二进制还是文本
 
-    char *recvBuf;
-    int recvBufLen;
+    int maxSendBufLen;  // 最大可发送数据长度
+    char *sendBuf;      // 指向发送缓冲区
+    int *sendBufLen;    // 发送缓冲区的实际大小
 
-    int msg_count;
+    char *recvBuf;  // 指向接收缓冲区
+    int recvBufLen; // 实际接收的数据长度.
 } WstClient;
 
 typedef enum {
     WST_FAILED = -1,
     WST_SUCCESSFUL = 0,
-    WST_INPUT_NULL = 1,
+    WST_INPUT_NULL,
+    WST_DOUBLE_INIT,
     WST_CREATE_CONTEXT_FAILED,
     WST_CONNECT_FAILED,
     WST_BUTT,
-} ErrorCode;
+} WstErrorCode;
 
 typedef enum {
     WST_MSGTYPE_INIT_SUCCESS,
@@ -46,15 +56,16 @@ typedef enum {
 } WstClientMsgType;
 
 typedef int (*EventCallback)(unsigned short callbackIndex, int msgType);
+typedef void (*Log2File)(int level, const char *line);
 
-int WstInit(EventCallback eventCallback);
+int WstInit(EventCallback eventCallback, Log2File log2file);
 
 int WstConnect(WstClient *client);
 
-void WstPoll();
+void WstPoll(); // 需要调用者控制休眠以防止cpu 100%
 
 int WstSend(WstClient *wstClient);
 
 int WstDisconnect(WstClient *client);
 
-#endif // WS_CLIENT_INTERFACE_H
+#endif // WS_UTILS_H
