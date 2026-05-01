@@ -4,6 +4,7 @@
 #define WS_GENERAL_LEN_128 128
 #define WS_GENERAL_LEN_256 256
 #define MAX_PAYLOAD_SIZE 10240 // 接口单次接收最大数据长度.
+#define WST_MAX_CUSTOM_HEADERS 8 // 每个连接最多支持的自定义 HTTP 头域数量
 
 typedef enum {
     URI_TYPE_IPV4,
@@ -11,6 +12,11 @@ typedef enum {
     URI_TYPE_DOMAIN,
     URI_TYPE_BUTT
 } UriType;
+
+typedef struct {
+    char name[WS_GENERAL_LEN_128];  // 头域名，如 "Authorization"，空字符串表示结束
+    char value[WS_GENERAL_LEN_256]; // 头域值，如 "Bearer xxxxx"
+} WstHttpHeader;
 
 typedef struct {
     unsigned short callbackIndex;   // 记录调用者序号,回调时返回,初始化以后不再变化.
@@ -34,6 +40,8 @@ typedef struct {
 
     char *recvBuf;  // 指向接收缓冲区
     int recvBufLen; // 实际接收的数据长度.
+
+    WstHttpHeader customHeaders[WST_MAX_CUSTOM_HEADERS]; // 握手时附加的自定义 HTTP 头域，name 为空则表示结束
 } WstClient;
 
 typedef enum {

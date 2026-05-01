@@ -74,6 +74,31 @@ int ws_GetAddrInfo(int fd, int direction, char *ip, unsigned short *port)
 }
 
 
+int ws_client_callback_append_header(struct lws *wsi, WstClient *wstClient, void *in, size_t len)
+{
+    if (wsi == NULL) {
+        lwsl_cx_err(g_context, "wsi is NULL");
+        return WST_FAILED;
+    }
+    if (wstClient == NULL) {
+        return WST_SUCCESSFUL; // 无自定义头域，正常跳过
+    }
+
+    unsigned char **p = (unsigned char **) in, *end = (*p) + len;
+    for (int i = 0; i < WST_MAX_CUSTOM_HEADERS; i++) {
+        if (wstClient->customHeaders[i].name[0] == '\0') break;
+        if (lws_add_http_header_by_name(wsi,
+                (const unsigned char *) wstClient->customHeaders[i].name,
+                (const unsigned char *) wstClient->customHeaders[i].value,
+                (int) strlen(wstClient->customHeaders[i].value), p, end)) {
+            lwsl_wsi_err(wsi, "append header failed: %s", wstClient->customHeaders[i].name);
+            return WST_FAILED;
+        }
+        lwsl_wsi_user(wsi, "append header: %s", wstClient->customHeaders[i].name);
+    }
+    return WST_SUCCESSFUL;
+}
+
 int ws_client_callback_connect_error(struct lws *wsi, WstClient *wstClient, void *in, size_t len)
 {
     if (wsi == NULL) {
@@ -236,6 +261,8 @@ int ws_client_callback(struct lws *wsi, enum lws_callback_reasons reason, void *
         case LWS_CALLBACK_PROTOCOL_INIT:
             lwsl_wsi_notice(wsi, "protocol_init");
             break;
+        case LWS_CALLBACK_CLIENT_APPEND_HANDSHAKE_HEADER:
+            return ws_client_callback_append_header(wsi, wstClient, in, len);
         case LWS_CALLBACK_CLIENT_CONNECTION_ERROR:
             return ws_client_callback_connect_error(wsi, wstClient, in, len);
         case LWS_CALLBACK_CLIENT_ESTABLISHED:
