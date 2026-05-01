@@ -331,7 +331,7 @@ int ParseServerUrl(const char *serverUri, char *addr, int *port, char *path)
     const char *path_start = strchr(pos, '/');
     size_t host_len;
     if (path_start) {
-        host_len = (size_t)(path_start - pos);
+        host_len = (size_t) (path_start - pos);
         snprintf(path, WS_GENERAL_LEN_128, "%s", path_start); // L4: 避免 strcpy 越界
     } else {
         host_len = strlen(pos);
@@ -390,21 +390,32 @@ struct lws *create_ws_connection(struct lws_vhost *vhost, const char *serverUri,
     conn_info.origin = authority;
     conn_info.opaque_user_data = userData;
 
+    /* 待确认
+     当前 g_protocols 用 "wss"/"ws"/"https"/"http" 作为协议处理器名，conn_info.protocol 也赋相同值。lws 会将 conn_info.protocol 作为 Sec-WebSocket-Protocol 请求头发给服务端：
+     Sec-WebSocket-Protocol: wss
+     服务端若不认识这个子协议（大多数服务端不接受），握手会失败。正确做法是两个名字分开：本地处理器名用 conn_info.local_protocol_name，远端子协议名用 conn_info.protocol（不需要协商时传
+      NULL）。
+    */
+
     if (!strncmp(serverUri, WS_SCHEME_WSS, strlen(WS_SCHEME_WSS))) {
-        conn_info.protocol = WS_SCHEME_WSS;
+        conn_info.local_protocol_name = WS_SCHEME_WSS;
+        conn_info.protocol = NULL; // 不发送 Sec-WebSocket-Protocol，兼容不声明子协议的服务端
         conn_info.ssl_connection =
                 LCCSCF_USE_SSL | LCCSCF_ALLOW_SELFSIGNED | LCCSCF_SKIP_SERVER_CERT_HOSTNAME_CHECK |
                 LCCSCF_ALLOW_INSECURE;
     } else if (!strncmp(serverUri, WS_SCHEME_WS, strlen(WS_SCHEME_WS))) {
-        conn_info.protocol = WS_SCHEME_WS;
+        conn_info.local_protocol_name = WS_SCHEME_WS;
+        conn_info.protocol = NULL;
         conn_info.ssl_connection = 0;
     } else if (!strncmp(serverUri, WS_SCHEME_HTTPS, strlen(WS_SCHEME_HTTPS))) {
-        conn_info.protocol = WS_SCHEME_HTTPS;
+        conn_info.local_protocol_name = WS_SCHEME_HTTPS;
+        conn_info.protocol = NULL;
         conn_info.ssl_connection =
                 LCCSCF_USE_SSL | LCCSCF_ALLOW_SELFSIGNED | LCCSCF_SKIP_SERVER_CERT_HOSTNAME_CHECK |
                 LCCSCF_ALLOW_INSECURE;
     } else if (!strncmp(serverUri, WS_SCHEME_HTTP, strlen(WS_SCHEME_HTTP))) {
-        conn_info.protocol = WS_SCHEME_HTTP;
+        conn_info.local_protocol_name = WS_SCHEME_HTTP;
+        conn_info.protocol = NULL;
         conn_info.ssl_connection = 0;
     }
 
