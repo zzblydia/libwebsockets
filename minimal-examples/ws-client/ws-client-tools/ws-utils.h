@@ -3,7 +3,8 @@
 
 #define WS_GENERAL_LEN_128 128
 #define WS_GENERAL_LEN_256 256
-#define MAX_PAYLOAD_SIZE 10240 // 接口单次接收最大数据长度.
+#define MAX_PAYLOAD_SIZE  10240   // lws 单次 RECEIVE 回调最大投递字节数（rx_buffer_size）
+#define MAX_MESSAGE_SIZE  102400  // 单条完整消息最大长度（分片累积上限）
 #define WST_MAX_CUSTOM_HEADERS 8 // 每个连接最多支持的自定义 HTTP 头域数量
 
 typedef enum {
@@ -27,8 +28,8 @@ typedef struct {
     unsigned short serverPort;      // 建立连接后记录使用的远端端口
 
     char serverUriType; // 0:ipv4 1:ipv6 2:domain(可能包含非标准端口)
-    char serverUri[WS_GENERAL_LEN_128]; // 前缀必须为 wss/https/ws/http
-    char certPath[WS_GENERAL_LEN_128];  // 双向认证时客户端证书的路径(pem或者ca)
+    char serverUri[WS_GENERAL_LEN_256]; // 前缀必须为 wss/https/ws/http
+    char certPath[WS_GENERAL_LEN_256];  // 双向认证时客户端证书的路径(pem或者ca)
 
     void *wsi;
 
@@ -51,6 +52,7 @@ typedef enum {
     WST_DOUBLE_INIT,
     WST_CREATE_CONTEXT_FAILED,
     WST_CONNECT_FAILED,
+    WST_CONNECT_FAILED_IP_TYPE_WRONG,
     WST_BUTT,
 } WstErrorCode;
 
@@ -66,7 +68,7 @@ typedef enum {
 typedef int (*EventCallback)(unsigned short callbackIndex, int msgType);
 typedef void (*Log2File)(int level, const char *line);
 
-int WstInit(EventCallback eventCallback, Log2File log2file);
+int WstInit(EventCallback eventCallback, Log2File log2file); // 只允许调用一次;log2file为空则输出到标准输出
 
 int WstConnect(WstClient *client);
 

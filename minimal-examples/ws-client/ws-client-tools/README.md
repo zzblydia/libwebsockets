@@ -8,7 +8,7 @@
 |------|------|
 | `ws-utils.h` | 公共头文件，定义结构体、错误码、消息类型、函数接口，无其他依赖 |
 | `ws-utils.c` | 工具实现 |
-| `ws-utils-main.c` | 调用示例 |
+| `ws-utils-main.c` | 调用示例 + 全量自测（内置 echo 服务端，覆盖参数校验/收发/分片/TLS/并发/性能） |
 
 ## 构建
 
@@ -108,3 +108,33 @@ WstConnect(&g_client[0]);
 
 while (1) { WstPoll(); }
 ```
+
+## 自测程序
+
+本目录提供两个独立的自测 binary，互为补充。
+
+### `ws-client-tools` — 自带内置 echo 服务端
+
+`ws-utils-main.c` 在同进程内拉起一个 ws/wss 完整 echo 服务端，对 `ws-utils.c` 做端到端测试。直接运行 `./bin/ws-client-tools` 即可，期望 `Tests failed: 0`。覆盖：
+
+- **参数校验**：`WstInit/WstConnect/WstSend/WstDisconnect` 的 NULL/越界场景
+- **生命周期**：建链、不可达端口的 CONNECT_ERROR、非法 URI、主动断开、服务端发起断开
+- **数据收发**：文本、二进制、最大载荷、空写（不填数据不报错）、子路径 + 查询串
+- **自定义头域**：握手附加 HTTP 头并由服务端校验
+- **多并发**：5 路连接独立 echo
+- **TLS**：wss + 自签证书
+- **性能**：100 次 round-trip 计时
+
+服务端使用端口 17681 (ws) 与 17682 (wss)，证书自动从常见路径（`../share/libwebsockets-test-server/...`、`../libwebsockets-test-server.pem` 等）查找，找不到则跳过 wss 用例。
+
+### `ws-client-tools-srv-tls` — 配合外部 wss 服务端
+
+`ws-utils-srv-tls-main.c` 在 fork 出来的子进程里拉起 `ws-server-simple-send-recv-tls` (端口 8001, wss only)，专门测大 fragment / 边界条件，因为该服务端 `rx_buffer_size = 1024` 且每次 RECEIVE 直接覆盖缓冲、最后只回写"最后一个分块"。覆盖：
+
+- 文本/二进制小消息 echo
+- 边界 1023 / 1024 / 1025 字节
+- 大消息 3KB / ~10KB（验证客户端发送不报错、连接不断、回写匹配原始末尾片段）
+- 空 WRITEABLE
+- 100 次小消息 + 30 次 2KB 性能 round-trip
+
+运行前确保 `ws-server-simple-send-recv-tls` 已编译（与本 target 同一 cmake project，会一起编出）。

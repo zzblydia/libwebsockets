@@ -18,11 +18,14 @@
 #define WS_SCHEME_HTTPS "https"
 #define WS_SCHEME_HTTP  "http"
 
-struct session_data {
+typedef struct session_data {
     unsigned char buf[LWS_PRE + MAX_PAYLOAD_SIZE];
     int len;
     int bufDataType;
-};
+
+    unsigned char cache[MAX_MESSAGE_SIZE];
+    int cacheLen;
+} SessionData;
 
 static EventCallback g_eventCallback = NULL; // 自定义回调函数, 初始化设置
 static struct lws_context_creation_info g_contextInfo = {0}; // 全局上下文信息
@@ -88,9 +91,9 @@ int ws_client_callback_append_header(struct lws *wsi, WstClient *wstClient, void
     for (int i = 0; i < WST_MAX_CUSTOM_HEADERS; i++) {
         if (wstClient->customHeaders[i].name[0] == '\0') break;
         if (lws_add_http_header_by_name(wsi,
-                (const unsigned char *) wstClient->customHeaders[i].name,
-                (const unsigned char *) wstClient->customHeaders[i].value,
-                (int) strlen(wstClient->customHeaders[i].value), p, end)) {
+                                        (const unsigned char *) wstClient->customHeaders[i].name,
+                                        (const unsigned char *) wstClient->customHeaders[i].value,
+                                        (int) strlen(wstClient->customHeaders[i].value), p, end)) {
             lwsl_wsi_err(wsi, "append header failed: %s", wstClient->customHeaders[i].name);
             return WST_FAILED;
         }
@@ -156,7 +159,7 @@ int ws_client_callback_established(struct lws *wsi, WstClient *wstClient)
     return WST_SUCCESSFUL;
 }
 
-int ws_client_callback_received(struct lws *wsi, WstClient *wstClient, void *in, size_t len)
+int ws_client_callback_received(struct lws *wsi, WstClient *wstClient, void *in, size_t len, void *user)
 {
     if (wsi == NULL) {
         lwsl_cx_err(g_context, "wsi is NULL");
@@ -166,18 +169,59 @@ int ws_client_callback_received(struct lws *wsi, WstClient *wstClient, void *in,
         lwsl_wsi_err(wsi, "wstClient is NULL");
         return WST_FAILED;
     }
+    if (user == NULL) {
+        lwsl_wsi_err(wsi, "user is NULL");
+        return WST_FAILED;
+    }
 
-    int first_fragment = lws_is_first_fragment(wsi);
-    int final_fragment = lws_is_final_fragment(wsi);
+    SessionData *data = (SessionData *) user;
+    int first = lws_is_first_fragment(wsi);
+    int last = lws_is_final_fragment(wsi);
     int is_binary = lws_frame_is_binary(wsi);
     size_t remain_len = lws_remaining_packet_payload(wsi);
 
-    lwsl_wsi_user(wsi, "received len %zu, first %d, final %d, binary %d, remain %zu", len, first_fragment,
-                  final_fragment, is_binary, remain_len); // size_t 用 %zu
+    lwsl_wsi_user(wsi, "received len %zu, first %d, final %d, binary %d, remain %zu, cached %d",
+                  len, first, last, is_binary, remain_len, data->cacheLen);
 
-    wstClient->recvBuf = in;
-    wstClient->recvBufLen = (int) len;
-    wstClient->bufDataType = is_binary;
+    if (is_binary) {
+        // 二进制不需要等分片完整，上层按块处理
+        wstClient->recvBuf = (char *) in;
+        wstClient->recvBufLen = (int) len;
+        wstClient->bufDataType = LWS_WRITE_BINARY;
+        g_eventCallback(wstClient->callbackIndex, WST_MSGTYPE_RECEIVED);
+        return WST_SUCCESSFUL;
+    }
+
+    // 文本需要等所有分片及同一帧的所有 lws 拆包全部到达才回调
+    // 原因：文本数据可能是 base64 或 JSON 格式，截断会导致上层解析失败
+    if (first) {
+        data->cacheLen = 0;
+    }
+
+    if ((int) (len + remain_len) > (int) sizeof(data->cache)) {
+        lwsl_wsi_warn(wsi, "text msg frame too large: %zu + %zu > %zu, ignoring",
+                      len, remain_len, sizeof(data->cache));
+        data->cacheLen = 0;
+        return WST_SUCCESSFUL;
+    }
+
+    if (data->cacheLen + (int) len > (int) sizeof(data->cache)) {
+        lwsl_wsi_warn(wsi, "text msg too large: cached %d + %zu > %zu, ignoring",
+                      data->cacheLen, len, sizeof(data->cache));
+        data->cacheLen = 0;
+        return WST_SUCCESSFUL;
+    }
+
+    memcpy(data->cache + data->cacheLen, in, len);
+    data->cacheLen += (int) len;
+
+    if (!last) {
+        return WST_SUCCESSFUL;
+    }
+
+    wstClient->recvBuf = (char *) data->cache;
+    wstClient->recvBufLen = data->cacheLen;
+    wstClient->bufDataType = LWS_WRITE_TEXT;
     g_eventCallback(wstClient->callbackIndex, WST_MSGTYPE_RECEIVED);
     return WST_SUCCESSFUL;
 }
@@ -210,8 +254,9 @@ int ws_client_callback_writeable(struct lws *wsi, WstClient *wstClient, void *us
 
     if (data->len > 0) {
         int n = lws_write(wsi, &data->buf[LWS_PRE], (size_t) data->len, data->bufDataType);
-        if (n < data->len) {
-            lwsl_wsi_err(wsi, "lws_write failed: %d", n);
+        if (n != data->len) {
+            lwsl_wsi_err(wsi, "lws_write failed: wrote %d of %d", n, data->len);
+            return WST_FAILED;
         }
     }
 
@@ -240,10 +285,10 @@ int ws_client_callback_closed(struct lws *wsi, WstClient *wstClient)
 static int ws_client_callback(struct lws *wsi, enum lws_callback_reasons reason, void *user, void *in, size_t len);
 
 struct lws_protocols g_protocols[] = {
-    { WS_SCHEME_WSS,   ws_client_callback, sizeof(struct session_data), MAX_PAYLOAD_SIZE, 0, NULL, 0 },
-    { WS_SCHEME_HTTPS, ws_client_callback, sizeof(struct session_data), MAX_PAYLOAD_SIZE, 0, NULL, 0 },
-    { WS_SCHEME_WS,    ws_client_callback, sizeof(struct session_data), MAX_PAYLOAD_SIZE, 0, NULL, 0 },
-    { WS_SCHEME_HTTP,  ws_client_callback, sizeof(struct session_data), MAX_PAYLOAD_SIZE, 0, NULL, 0 },
+    {WS_SCHEME_WSS, ws_client_callback, sizeof(struct session_data), MAX_PAYLOAD_SIZE, 0, NULL, 0},
+    {WS_SCHEME_HTTPS, ws_client_callback, sizeof(struct session_data), MAX_PAYLOAD_SIZE, 0, NULL, 0},
+    {WS_SCHEME_WS, ws_client_callback, sizeof(struct session_data), MAX_PAYLOAD_SIZE, 0, NULL, 0},
+    {WS_SCHEME_HTTP, ws_client_callback, sizeof(struct session_data), MAX_PAYLOAD_SIZE, 0, NULL, 0},
     LWS_PROTOCOL_LIST_TERM
 };
 
@@ -268,10 +313,10 @@ int ws_client_callback(struct lws *wsi, enum lws_callback_reasons reason, void *
         case LWS_CALLBACK_CLIENT_ESTABLISHED:
             return ws_client_callback_established(wsi, wstClient);
         case LWS_CALLBACK_CLIENT_RECEIVE:
-            return ws_client_callback_received(wsi, wstClient, in, len);
+            return ws_client_callback_received(wsi, wstClient, in, len, user);
         case LWS_CALLBACK_CLIENT_WRITEABLE:
             return ws_client_callback_writeable(wsi, wstClient, user);
-        case LWS_CALLBACK_CLOSED:
+        case LWS_CALLBACK_CLIENT_CLOSED:
             return ws_client_callback_closed(wsi, wstClient);
         default:
             break;
@@ -331,6 +376,12 @@ struct lws_vhost *create_vhost(const char *vhost_name, const char *certPath, cha
         create_info.options |= LWS_SERVER_OPTION_DISABLE_IPV6;
     }
 
+    // wss/https 需要 SSL global init, 否则客户端 SSL_CTX 为空导致 SSL_new 失败
+    if (!strncmp(vhost_name, WS_SCHEME_WSS, strlen(WS_SCHEME_WSS)) ||
+        !strncmp(vhost_name, WS_SCHEME_HTTPS, strlen(WS_SCHEME_HTTPS))) {
+        create_info.options |= LWS_SERVER_OPTION_DO_SSL_GLOBAL_INIT;
+    }
+
     if (certPath != NULL && certPath[0] != '\0') {
         create_info.client_ssl_cert_filepath = certPath;
     }
@@ -359,10 +410,10 @@ int ParseServerUrl(const char *serverUri, char *addr, int *port, char *path)
     size_t host_len;
     if (path_start) {
         host_len = (size_t) (path_start - pos);
-        snprintf(path, WS_GENERAL_LEN_128, "%s", path_start); // L4: 避免 strcpy 越界
+        snprintf(path, WS_GENERAL_LEN_256, "%s", path_start);
     } else {
         host_len = strlen(pos);
-        snprintf(path, WS_GENERAL_LEN_128, "/");
+        snprintf(path, WS_GENERAL_LEN_256, "/");
     }
 
     // 3. 在 Host 部分查找端口号
@@ -457,6 +508,11 @@ int WstConnect(WstClient *wstClient)
     }
 
     lwsl_cx_user(g_context, "connect to server %s with certPath %s", wstClient->serverUri, wstClient->certPath);
+
+    if (wstClient->serverUriType >= URI_TYPE_BUTT) {
+        lwsl_cx_warn(g_context, "serverUriType invalid (%d), treated as URI_TYPE_IPV4", wstClient->serverUriType);
+        return WST_CONNECT_FAILED_IP_TYPE_WRONG;
+    }
 
     // 创建vhost控制域名场景禁用IPV6,否则只有tls场景下需要创建vhost
     struct lws_vhost *vhost = create_vhost(wstClient->serverUri, wstClient->certPath, wstClient->serverUriType);
