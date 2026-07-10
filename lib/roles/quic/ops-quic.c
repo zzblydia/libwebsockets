@@ -106,14 +106,14 @@ lws_quic_pto_cb(lws_sorted_usec_list_t *sul)
 			sent_ping = 1;
 		}
 
-		if (!sent_ping && !qn->is_server && !qn->handshake_done) {
+		if (!sent_ping && !qn->handshake_done) {
 			int target_level = LWS_QUIC_LEVEL_INITIAL;
 			if (qn->keys[LWS_QUIC_LEVEL_HANDSHAKE]) target_level = LWS_QUIC_LEVEL_HANDSHAKE;
 			struct lws_quic_tx_frame *ping = lws_zalloc(sizeof(*ping), "pto ping");
 			if (ping) {
 				ping->type = LWS_QUIC_FT_PING;
 				lws_dll2_add_tail(&ping->list, &qn->pending_tx[target_level]);
-				lwsl_wsi_notice(qn->nwsi, "QUIC PTO: Enqueued PING for level %d (no in-flight, client handshake incomplete)", target_level);
+				lwsl_wsi_notice(qn->nwsi, "QUIC PTO: Enqueued PING for level %d (no in-flight, handshake incomplete)", target_level);
 				qn->pto_probe_needed = 1;
 			}
 			sent_ping = 1;
@@ -130,7 +130,7 @@ lws_quic_pto_cb(lws_sorted_usec_list_t *sul)
 			}
 		}
 
-		if (any_in_flight || (!qn->is_server && !qn->handshake_done)) {
+		if (any_in_flight || !qn->handshake_done) {
 			lws_usec_t pto_base = qn->smoothed_rtt ? (qn->smoothed_rtt + (4 * qn->rttvar) + 25000) : LWS_QUIC_DEFAULT_PTO_US;
 			lws_usec_t pto_delay = pto_base << qn->pto_count;
 			if (pto_delay > 10000000)
@@ -323,8 +323,9 @@ lws_quic_handle_ack(struct lws *nwsi, int level, uint64_t acked_pn)
 			}
 		}
 		if (!any_in_flight2) {
-			if (!qn->is_server && !qn->handshake_done) {
-				/* Keep PTO timer running to probe if server gets blocked (RFC 9002 6.2.2.1) */
+			if (!qn->handshake_done) { /* was !qn->is_server && ... */
+				/* Keep PTO timer running to probe if peer gets blocked (RFC 9002 6.2.2.1) */
+				lwsl_notice("lws_quic_handle_ack: Keeping PTO timer active (no in-flight, handshake incomplete)\n");
 			} else {
 				lws_sul_cancel(&qn->pto_sul);
 			}
