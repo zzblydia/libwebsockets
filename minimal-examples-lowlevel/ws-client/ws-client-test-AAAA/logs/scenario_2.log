@@ -1,0 +1,20 @@
+[2026/07/12 11:27:57:6169] N: TEST_DISABLE_IPV6_AT=2 (0=none 1=vhost 2=context)
+[2026/07/12 11:27:57:6170] N: lws_create_context: LWS: 4.5.99-v4.5.0-559-g7316933ae, OpenSSL 3.0.13 30 Jan 2024, NET CLI SRV H1 H2 WS SS-JSON-POL ConMon ASYNC_DNS IPV6-off
+[2026/07/12 11:27:57:6254] N: [wsisrv|0|system|asyncdns]: lws_create_adopt_udp: adopt_udp: wsi->ipv6=0 (ctx DIS_IPV6=1 vh DIS_IPV6=0)
+[2026/07/12 11:27:57:6254] N: [wsisrv|0|system|asyncdns]: lws_sort_dns: sort_dns BEFORE[0]: wsi->ipv6=0 ai_family=2 ip=192.168.8.42
+[2026/07/12 11:27:57:6254] N: [wsisrv|0|system|asyncdns]: lws_sort_dns: sort_dns chk: wsi->ipv6=0 ai_family=2 ip=192.168.8.42 -> keep
+[2026/07/12 11:27:57:6254] N: [wsisrv|0|system|asyncdns]: lws_sort_dns: sort_dns AFTER[0]: ai_family=2 ip=192.168.8.42
+[2026/07/12 11:27:57:6255] N: [wsisrv|1|system|asyncdns]: lws_create_adopt_udp: adopt_udp: wsi->ipv6=0 (ctx DIS_IPV6=1 vh DIS_IPV6=0)
+[2026/07/12 11:27:57:6255] N: [wsisrv|1|system|asyncdns]: lws_sort_dns: sort_dns BEFORE[0]: wsi->ipv6=0 ai_family=2 ip=127.0.0.53
+[2026/07/12 11:27:57:6255] N: [wsisrv|1|system|asyncdns]: lws_sort_dns: sort_dns chk: wsi->ipv6=0 ai_family=2 ip=127.0.0.53 -> keep
+[2026/07/12 11:27:57:6255] N: [wsisrv|1|system|asyncdns]: lws_sort_dns: sort_dns AFTER[0]: ai_family=2 ip=127.0.0.53
+[2026/07/12 11:27:57:6526] N: vhost ready, TEST_DISABLE_IPV6_AT=2
+[2026/07/12 11:27:57:6566] N: lws_adns_iterate: skipping goodluck.com. vs goodluck.com.
+[2026/07/12 11:27:57:6567] N: [wsicli|0|WS/h1/default/www.goodluck.com]: lws_sort_dns: sort_dns BEFORE[0]: wsi->ipv6=0 ai_family=10 ip=2001:db8:85a3::8a2e:370:7334
+[2026/07/12 11:27:57:6567] N: [wsicli|0|WS/h1/default/www.goodluck.com]: lws_sort_dns: sort_dns BEFORE[1]: wsi->ipv6=0 ai_family=2 ip=192.168.8.42
+[2026/07/12 11:27:57:6567] N: [wsicli|0|WS/h1/default/www.goodluck.com]: lws_sort_dns: sort_dns chk: wsi->ipv6=0 ai_family=10 ip=2001:db8:85a3::8a2e:370:7334 -> FILTERED
+[2026/07/12 11:27:57:6567] N: [wsicli|0|WS/h1/default/www.goodluck.com]: lws_sort_dns: sort_dns chk: wsi->ipv6=0 ai_family=2 ip=192.168.8.42 -> keep
+[2026/07/12 11:27:57:6567] N: [wsicli|0|WS/h1/default/www.goodluck.com]: lws_sort_dns: sort_dns AFTER[0]: ai_family=2 ip=192.168.8.42
+[2026/07/12 11:27:57:6657] N: accepting self-signed certificate (verify_callback)
+[2026/07/12 11:27:57:6686] N: Connected to server ok!
+[2026/07/12 11:28:05:6161] N: receive signal 15

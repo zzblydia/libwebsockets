@@ -1,0 +1,81 @@
+#ifndef WS_UTILS_H
+#define WS_UTILS_H
+
+#define WS_GENERAL_LEN_128 128
+#define WS_GENERAL_LEN_256 256
+#define MAX_PAYLOAD_SIZE  10240   // lws 单次 RECEIVE 回调最大投递字节数（rx_buffer_size）
+#define MAX_MESSAGE_SIZE  102400  // 单条完整消息最大长度（分片累积上限）
+#define WST_MAX_CUSTOM_HEADERS 8 // 每个连接最多支持的自定义 HTTP 头域数量
+
+typedef enum {
+    URI_TYPE_IPV4,
+    URI_TYPE_IPV6,
+    URI_TYPE_DOMAIN,
+    URI_TYPE_BUTT
+} UriType;
+
+typedef struct {
+    char name[WS_GENERAL_LEN_128];  // 头域名，如 "Authorization"，空字符串表示结束
+    char value[WS_GENERAL_LEN_256]; // 头域值，如 "Bearer xxxxx"
+} WstHttpHeader;
+
+typedef struct {
+    unsigned short callbackIndex;   // 记录调用者序号,回调时返回,初始化以后不再变化.
+
+    char clientIp[WS_GENERAL_LEN_128];  // 指定客户端ip或者建立连接后记录使用的本端ip.
+    unsigned short clientPort;      // 记录使用的本端ip端口, 因为暂不支持指定客户端端口
+    char serverIp[WS_GENERAL_LEN_128];  // 建立连接后记录使用的远端ip.
+    unsigned short serverPort;      // 建立连接后记录使用的远端端口
+
+    char serverUriType; // 0:ipv4 1:ipv6 2:domain(可能包含非标准端口)
+    char serverUri[WS_GENERAL_LEN_256]; // 前缀必须为 wss/https/ws/http
+    char certPath[WS_GENERAL_LEN_256];  // 双向认证时客户端证书的路径(pem或者ca)
+
+    void *wsi;
+
+    int bufDataType; // 发送或者接收的数据类型, 二进制还是文本
+
+    int maxSendBufLen;  // 最大可发送数据长度
+    char *sendBuf;      // 指向发送缓冲区
+    int *sendBufLen;    // 发送缓冲区的实际大小
+
+    char *recvBuf;  // 指向接收缓冲区
+    int recvBufLen; // 实际接收的数据长度.
+
+    WstHttpHeader customHeaders[WST_MAX_CUSTOM_HEADERS]; // 握手时附加的自定义 HTTP 头域，name 为空则表示结束
+} WstClient;
+
+typedef enum {
+    WST_FAILED = -1,
+    WST_SUCCESSFUL = 0,
+    WST_INPUT_NULL,
+    WST_DOUBLE_INIT,
+    WST_CREATE_CONTEXT_FAILED,
+    WST_CONNECT_FAILED,
+    WST_CONNECT_FAILED_IP_TYPE_WRONG,
+    WST_BUTT,
+} WstErrorCode;
+
+typedef enum {
+    WST_MSGTYPE_INIT_SUCCESS,
+    WST_MSGTYPE_CONNECT_SUCCESS,
+    WST_MSGTYPE_CONNECT_ERROR,
+    WST_MSGTYPE_RECEIVED,
+    WST_MSGTYPE_WRITEABLE,
+    WST_MSGTYPE_DISCONNECTED,
+} WstClientMsgType;
+
+typedef int (*EventCallback)(unsigned short callbackIndex, int msgType);
+typedef void (*Log2File)(int level, const char *line);
+
+int WstInit(EventCallback eventCallback, Log2File log2file); // 只允许调用一次;log2file为空则输出到标准输出
+
+int WstConnect(WstClient *client);
+
+void WstPoll(); // 需要调用者控制休眠以防止cpu 100%
+
+int WstSend(WstClient *wstClient);
+
+int WstDisconnect(WstClient *client);
+
+#endif // WS_UTILS_H
