@@ -1,6 +1,6 @@
 # libwebsockets Integration & Engineering Practice  
 
-Since 2023.06, I have been using `libwebsockets` as a client to connect with `TTS`, `ASR`, and `audio/video streaming` servers.  
+Since June 2023, I have been utilizing `libwebsockets` as a high-performance client to interface with real-time servers—including **TTS** (Text-to-Speech), **ASR** (Automatic Speech Recognition), and **audio/video streaming** nodes—within a telecom-grade C language commercial application.  
 
 After evaluating `uWebsockets`, `websocketCPP`, `beast` and `Poco C++`, I chose `libwebsockets` for its lightweight footprint and high performance.
 
