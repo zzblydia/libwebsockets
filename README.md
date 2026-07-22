@@ -18,6 +18,7 @@ This repository documents my deep engineering practices with the library, includ
 ## my PRs
 | Date | PR |  
 | :--- | :--- |  
+| **20260722** | [client: fix pipelining match when host and address differ](https://github.com/warmcat/libwebsockets/pull/3639) | 
 | **20260709** | [client: sort-dns: skip AAAA results when ipv6 is disable](https://github.com/warmcat/libwebsockets/pull/3628) |  
 | **20260709** | [async-dns: send the A query before AAAA](https://github.com/warmcat/libwebsockets/pull/3627) |   
 | **20251230** | [\[cleanup\] Simplify conditional route pointer declarations in lws_sort_dns()](https://github.com/warmcat/libwebsockets/pull/3532) |  
